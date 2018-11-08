@@ -222,7 +222,6 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
         iv_marker = findViewById(R.id.ivmarker);
 
-
         //iv_marker.drawableHotspotChanged(0.2f,23.2f);
         //iv_marker.setBackground(getDrawable(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
 
@@ -246,35 +245,6 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         viewPager.setOffscreenPageLimit(MAX_STEP);
         recyclerView = findViewById(R.id.reciclerView);
         parent_view = findViewById(android.R.id.content);
-
-        //initComponent();
-        /*recyclerView.setHasFixedSize(true);
-        LinearLayoutManager mylinear = new LinearLayoutManager(this);
-        mylinear.setOrientation(LinearLayoutManager.HORIZONTAL);
-        try {
-            JSONArray arr = new JSONArray();
-            JSONObject obj1 = new JSONObject();
-            obj1.put("id", 1);
-            obj1.put("nombre", R.drawable.background_siete_estadar);
-            arr.put(obj1);
-            JSONObject obj2 = new JSONObject();
-            obj2.put("id", 5);
-            obj2.put("nombre", R.drawable.background_siete_4x4);
-            arr.put(obj2);
-            JSONObject obj3 = new JSONObject();
-            obj3.put("id", 6);
-            obj3.put("nombre", R.drawable.background_siete_camioneta);
-            arr.put(obj3);
-            JSONObject obj4 = new JSONObject();
-            obj4.put("id", 7);
-            obj4.put("nombre", R.drawable.backgroud_tres_filas);
-            arr.put(obj4);
-            AdaptadorSieteEstandar ada = new AdaptadorSieteEstandar(arr, this, PedirSieteMap.this);
-            recyclerView.setAdapter(ada);
-            recyclerView.setLayoutManager(mylinear);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
 
         next_historial = findViewById(R.id.next_historial);
         next_historial.setOnClickListener(this);
