@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Favoritos_Clientes">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:titleTextColor="@color/colorWhite"
+        android:background="@drawable/backgroundcolor2"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapviewPedirSiete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/ivmarker"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/asetmar" />
+
+        <Button
+            android:id="@+id/btn_agregar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:text="Agregar"
+            android:textSize="18dp"
+            android:background="@color/colorBlack"
+            android:textColor="@color/colorPrimary2"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:layout_gravity="bottom"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:background="@drawable/backgroundcolor2">
+
+        <AutoCompleteTextView
+            android:id="@+id/text_direccion_togo"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:paddingLeft="10dp"
+            android:hint="¿A dónde vamos?"
+            android:background="@drawable/ic_button_border_gris"
+            android:drawableStart="@drawable/ic_icon_pointer_map2"
+            android:inputType="text"
+            android:textSize="15sp"
+            android:drawablePadding="5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Favoritos"
+            android:textSize="30dp"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/container_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/lv_List_favoritos"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorWhite"
+                    android:layout_weight="1"
+                    tools:listitem="@layout/layout_item_favoritos">
+                </ListView>
+
+                <Button
+                    android:id="@+id/btn_elegir_destino"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Elegir destino en el mapa"
+                    android:background="@color/colorPrimary2"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="bottom"/>
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
