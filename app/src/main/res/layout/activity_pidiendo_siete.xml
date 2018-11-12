@@ -26,7 +26,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:text="Pidiendo"
-            android:textAppearance="@style/Bubble.TextAppearance.Light"
             android:textColor="@android:color/background_light"
             android:textSize="30sp"
             android:textStyle="bold"
