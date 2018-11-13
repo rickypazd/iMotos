@@ -7,7 +7,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Califica tu viaje</string>
     <string name="apikey">AIzaSyAtXhnyolK8jL2rwY0x0vWyzwH9wUwnnM4</string>
@@ -17,7 +16,6 @@
     <string name="maxima_km_busqueda">50000</string>
     <string name="facebook_app_id">320327828699267</string>
     <string name="fb_login_protocol_scheme">fb320327828699267</string>
-
     <string name="style_map">[
   {
     "elementType": "geometry",
