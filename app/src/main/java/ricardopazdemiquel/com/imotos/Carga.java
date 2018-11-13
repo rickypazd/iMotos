@@ -35,6 +35,7 @@ public class Carga extends AppCompatActivity {
     private Intent intenError;
     private boolean isfirst;
     private JSONObject usr_log;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -46,8 +47,8 @@ public class Carga extends AppCompatActivity {
 
         if (isConnectedToInternet(this)) {
 
-                //Intent intent= new Intent(Carga.this,Sin_conexion.class);
-                //startActivity(intent);
+            //Intent intent= new Intent(Carga.this,Sin_conexion.class);
+            //startActivity(intent);
             /////
             /// if ress{cant:8
             ///         arr:[{
@@ -60,15 +61,12 @@ public class Carga extends AppCompatActivity {
             //camt >10  pregunta para actualizar y carga la ventana
 
         }
-        usr_log=getUsr_log();
+        usr_log = getUsr_log();
         try {
-            if(usr_log!=null){
-                String calidate=new ValidarSession(usr_log.getInt("id"),Token.currentToken).execute().get();
-                //        try {
-            new Get_validarCarrera(usr_log.getInt("id")).execute();
-
+            if (usr_log != null) {
+                new ValidarSession(usr_log.getInt("id"), Token.currentToken).execute().get();
+                new Get_validarCarrera(usr_log.getInt("id")).execute();
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -76,19 +74,15 @@ public class Carga extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-
-        ejecutar();
-
     }
-    public void ejecutar(){
+
+    public void ejecutar() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (usr_log != null) {
                     try {
                         if (usr_log.getInt("id_rol") == 4) {
-
                             Intent intent = new Intent(Carga.this, PedirSieteMap.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("lng", 0);
@@ -100,16 +94,17 @@ public class Carga extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-            } else {
-                Intent intent = new Intent(Carga.this, LoginSocial.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
+                } else {
+                    Intent intent = new Intent(Carga.this, LoginSocial.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
             }
-        }
-    }, 3000);
+        }, 2000);
 
-}
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -158,44 +153,48 @@ public class Carga extends AppCompatActivity {
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @Override
         protected String doInBackground(Void... params) {
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "validar_token");
-            parametros.put("id_usr",id+"");
-            parametros.put("token",token+"");
+            parametros.put("id_usr", id + "");
+            parametros.put("token", token + "");
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
-            if(resp==null){
-                Toast.makeText(Carga.this,"Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
+            if (resp == null) {
+                Log.e(Contexto.APP_TAG, "Error al conectarse con el servidor.");
+                Toast.makeText(Carga.this, "Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
+            }else if (resp.isEmpty()) {
+                Log.e(Contexto.APP_TAG, "Hubo un error al obtener datos.");
+                Toast.makeText(Carga.this, "Hubo un error al obtener datos.", Toast.LENGTH_SHORT).show();
+            }else if (resp.contains("falso")) {
+                Log.e(Contexto.APP_TAG, "Hubo un error al obtener datos.");
+                Toast.makeText(Carga.this, "Hubo un error al obtener datos.", Toast.LENGTH_SHORT).show();
             }else{
-                if (resp.contains("falso")) {
-                    Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-                } else {
-                    try {
-                        JSONArray obj = new JSONArray(resp);
-                        if(obj.length()<=0) {
-                            Toast.makeText(Carga.this,"No se encontro la sesión, porfavor vuelva a iniciar.", Toast.LENGTH_LONG).show();
-                            SharedPreferences preferencias = getSharedPreferences("myPref",MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferencias.edit();
-                            editor.putString("usr_log", "");
-                            usr_log=null;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                try {
+                    JSONArray obj = new JSONArray(resp);
+                    if (obj.length() <= 0) {
+                        Toast.makeText(Carga.this, "No se encontro la sesión, por favor vuelva a iniciar.", Toast.LENGTH_LONG).show();
+                        SharedPreferences preferencias = getSharedPreferences("myPref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferencias.edit();
+                        editor.putString("usr_log", "");
+                        usr_log = null;
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
@@ -206,59 +205,65 @@ public class Carga extends AppCompatActivity {
 
     public class Get_validarCarrera extends AsyncTask<Void, String, String> {
         private int id;
-        public Get_validarCarrera(int id){
-            this.id=id;
+
+        public Get_validarCarrera(int id) {
+            this.id = id;
         }
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @Override
         protected String doInBackground(Void... params) {
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_carrera_cliente");
-            parametros.put("id_usr",id+"");
+            parametros.put("id_usr", id + "");
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
-            if(resp==null){
+            if (resp == null) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else{
-                if (resp.contains("falso")) {
-                    Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-                } else {
-                    try {
-                        JSONObject obj = new JSONObject(resp);
-                        if(obj.getBoolean("exito")) {
-                            if(obj.getInt("id_tipo")== 2){//togo
-                                Intent intent = new Intent(Carga.this, EsperandoConductor.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.putExtra("obj_carrera", obj.toString());
-                                startActivity(intent);
-                            }else{
-                                Intent intent = new Intent(Carga.this, EsperandoConductor.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.putExtra("obj_carrera", obj.toString());
-                                startActivity(intent);
-                            }
-                        }else{
-                            SharedPreferences preferencias = getSharedPreferences("myPref",MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferencias.edit();
-                            editor.putString("chat_carrera", new JSONArray().toString());
-                            editor.commit();
-                            ejecutar();
+                Toast.makeText(Carga.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+                finish();
+            } else if (resp.isEmpty()) {
+                Log.e(Contexto.APP_TAG, "Hubo un error al obtener datos.");
+                Toast.makeText(Carga.this, "Hubo un error al obtener datos.", Toast.LENGTH_SHORT).show();
+                finish();
+            } else if (resp.contains("falso")) {
+                Log.e(Contexto.APP_TAG, "Hubo un error al obtener datos.");
+                Toast.makeText(Carga.this, "Hubo un error al obtener datos.", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    JSONObject obj = new JSONObject(resp);
+                    if (obj.getBoolean("exito")) {
+                        if (obj.getInt("id_tipo") == 2) {//togo
+                            Intent intent = new Intent(Carga.this, EsperandoConductor.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("obj_carrera", obj.toString());
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(Carga.this, EsperandoConductor.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("obj_carrera", obj.toString());
+                            startActivity(intent);
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    } else {
+                        SharedPreferences preferencias = getSharedPreferences("myPref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferencias.edit();
+                        editor.putString("chat_carrera", new JSONArray().toString());
+                        editor.commit();
+                        ejecutar();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-
         }
         @Override
         protected void onProgressUpdate(String... values) {

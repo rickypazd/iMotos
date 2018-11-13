@@ -87,8 +87,8 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     private TextView text_ultimo_mensaje;
 
 
-    private Button btn_enviar_mensaje;
-    private Button btn_llamar;
+    private ImageView btn_enviar_mensaje;
+    private ImageView btn_llamar;
     JSONObject Json_cancelarViaje;
 //    private LinearLayout perfil_condutor;
 
