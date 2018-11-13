@@ -14,7 +14,7 @@
     <string name="url_servlet_index">http://204.93.196.61:8080/motos/indexController</string>
     <string name="url_foto">http://204.93.196.61:8080/motos/</string>
     <string name="maxima_km_busqueda">50000</string>
-    <string name="facebook_app_id">320327828699267</string>
+    <string name="facebook_app_id">602584003489332</string>
     <string name="fb_login_protocol_scheme">fb320327828699267</string>
     <string name="style_map">[
   {
@@ -230,7 +230,6 @@
   }
 ]</string>
     <string name="title_activity_login_conductor">Inicia Como Conductor</string>
-
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
