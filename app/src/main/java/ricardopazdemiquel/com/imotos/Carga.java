@@ -66,6 +66,8 @@ public class Carga extends AppCompatActivity {
             if (usr_log != null) {
                 new ValidarSession(usr_log.getInt("id"), Token.currentToken).execute().get();
                 new Get_validarCarrera(usr_log.getInt("id")).execute();
+            }else{
+                ejecutar();
             }
         } catch (JSONException e) {
             e.printStackTrace();
