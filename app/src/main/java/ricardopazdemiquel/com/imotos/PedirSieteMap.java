@@ -1253,50 +1253,6 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public class User_getPerfil extends AsyncTask<Void, String, String> {
-
-        private final String id;
-        User_getPerfil(String id_usr) {
-            id = id_usr;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            Hashtable<String, String> parametros = new Hashtable<>();
-            parametros.put("evento", "get_usuario");
-            parametros.put("id",id);
-            String respuesta ="";
-            try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
-            } catch (Exception ex) {
-                Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }
-            return respuesta;
-        }
-        @Override
-        protected void onPostExecute(final String success) {
-            super.onPostExecute(success);
-            if(success==null){
-                Toast.makeText(PedirSieteMap.this,"Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
-            }else{
-                if (!success.isEmpty()){
-                    try {
-                        JSONObject usr = new JSONObject(success);
-                        if(usr.getString("exito").equals("si")) {
-                            SharedPreferences preferencias = getSharedPreferences("myPref", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferencias.edit();
-                            editor.putString("usr_log", usr.toString());
-                            editor.commit();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-        }
-    }
-
     private boolean runtime_permissions() {
         if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){      requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},100);
             return true;

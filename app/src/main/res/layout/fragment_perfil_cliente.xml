@@ -153,8 +153,8 @@
                             android:paddingEnd="20dp"
                             android:paddingLeft="20dp"
                             android:paddingTop="5dp"
-                            android:text=""
-                            android:textColor="#626262"
+                            android:text="sdfsdf"
+                            android:textColor="#424242"
                             android:textSize="18sp" />
 
                 </LinearLayout>
@@ -197,11 +197,10 @@
                         android:autoSizeStepGranularity="2sp"
                         android:autoSizeTextType="uniform"
                         android:paddingTop="5dp"
-
                         android:drawableEnd="@drawable/ic_pencil_edit"
                         android:paddingEnd="20dp"
                         android:paddingLeft="20dp"
-                        android:textColor="#626262"
+                        android:textColor="#424242"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -254,7 +253,7 @@
                             android:paddingTop="5dp"
                             android:paddingEnd="20dp"
                             android:paddingStart="20dp"
-                            android:textColor="#626262"
+                            android:textColor="#424242"
                             android:textSize="18sp" />
 
                         <ImageView
@@ -282,6 +281,7 @@
                     android:id="@+id/Liner_correo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -310,7 +310,7 @@
                         android:drawableEnd="@drawable/ic_pencil_edit"
                         android:paddingEnd="20dp"
                         android:paddingLeft="20dp"
-                        android:textColor="#626262"
+                        android:textColor="#424242"
                         android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>

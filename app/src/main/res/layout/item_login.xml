@@ -7,31 +7,28 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="370dp"
         android:layout_centerInParent="true"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="@dimen/spacing_middle"
-        app:cardCornerRadius="3dp"
         app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="3dp"
         app:cardElevation="2dp">
 
         <RelativeLayout
             android:layout_width="280dp"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:gravity="center">
 
                     <TextView
@@ -43,39 +40,41 @@
                         android:textSize="24sp" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
+
                     <Button
                         android:id="@+id/btnface"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
                         android:background="#3c599b"
-                        android:textColor="@color/colorWhite"
                         android:drawableStart="@drawable/logoface"
-                        android:text="FACEBOOK" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:layout_weight="1">
+                        android:text="FACEBOOK"
+                        android:textColor="@color/colorWhite" />
+
                     <Button
                         android:id="@+id/button8"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#e52928"
                         android:background="@drawable/button_border"
-                        android:drawableStart="@drawable/logo_gmail"
-                        android:text="Gmail" />
+                        android:drawableStart="@drawable/icon_google"
+                        android:text="Gmail"
+                        android:textColor="#e52928" />
+
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:visibility="gone">
 
                     <Button
                         android:id="@+id/logestandar"
@@ -83,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorPrimary2"
 
-                        android:text="iMovil"  />
+                        android:text="iMovil" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -78,8 +78,8 @@ public class LoginSocial extends AppCompatActivity {
     private String about_description_array[] = {
             "Facilita tus compras",
             "24 horas.",
-            "Ahorra Tiempo",
-            "Mas confiable",
+            "Formas de pago.",
+            "Ahorra tiempo.",
     };
     private int about_images_array[] = {
             R.drawable.ic_icon_imoto,

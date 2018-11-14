@@ -152,8 +152,6 @@
             android:theme="@style/AppThemeone"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Calificar_viaje"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".EsperandoConductor"
             android:theme="@style/AppThemeone"
