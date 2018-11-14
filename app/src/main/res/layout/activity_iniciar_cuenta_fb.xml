@@ -12,7 +12,7 @@
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimary2"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="0dp">
         </android.support.v7.widget.Toolbar>
@@ -198,7 +198,7 @@
                     android:id="@+id/radioHombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimaryButton_lila"
+                    android:buttonTint="@color/colorBlack"
                     android:fontFamily="sans-serif"
                     android:text="Hombre"
                     android:textSize="18dp" />
@@ -209,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:fontFamily="sans-serif"
-                    android:buttonTint="@color/colorPrimaryButton_lila"
+                    android:buttonTint="@color/colorBlack"
                     android:text="Mujer"
                     android:textSize="18dp" />
 
@@ -228,11 +228,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="40dp"
                     android:layout_marginStart="40dp"
-                    android:background="@drawable/botonwhite"
+                    android:background="@drawable/botonred"
                     android:fontFamily="sans-serif"
                     android:text="Siguiente"
                     android:textAllCaps="false"
-                    android:textColor="#656565"
+                    android:textColor="@color/colorBlack"
                     android:textSize="18dp" />
             </LinearLayout>
 
