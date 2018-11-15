@@ -50,7 +50,7 @@
                     android:id="@+id/img_photo"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@mipmap/ic_miperfil" />
+                    android:src="@drawable/ic_icon_perfil" />
 
                 <TextView
                     android:id="@+id/text_nombre"

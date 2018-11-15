@@ -550,8 +550,6 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                                 case 7:
                                     break;
                             }
-
-
                         }
                         if(obj.getInt("estado")==4){
                             ll2= new LatLng(json_carrera.getDouble("latfinal"),json_carrera.getDouble("lngfinal"));
