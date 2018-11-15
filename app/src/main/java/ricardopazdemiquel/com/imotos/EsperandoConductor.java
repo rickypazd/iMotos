@@ -769,11 +769,11 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                             }
                         });
                     }
-                    if(object.has("foto_perfil")){
+                    /*if(object.has("foto_perfil")){
                         if(object.getString("foto_perfil").length()>0){
                             new AsyncTaskLoadImage(img_foto).execute(getString(R.string.url_foto)+object.getString("foto_perfil"));
                         }
-                    }
+                    }*/
                 }else{
                     Toast.makeText(EsperandoConductor.this,"Error al obtener Datos", Toast.LENGTH_SHORT).show();
                 }

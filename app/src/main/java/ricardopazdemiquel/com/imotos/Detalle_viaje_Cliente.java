@@ -39,7 +39,8 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
 
     private TextView nombre;
     private com.mikhaellopez.circularimageview.CircularImageView fotoConductor;
-    private TextView placa_numerotelefono;
+    private TextView placa;
+    private TextView telefono;
     private TextView direccion_inicio;
     private TextView direccion_final;
     private TextView fecha;
@@ -65,8 +66,9 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
         btn_ver_recorrido = findViewById(R.id.btn_ver_recorrido);
         nombre = findViewById(R.id.text_nombre);
+        placa = findViewById(R.id.text_placa);
+        telefono = findViewById(R.id.text_telefono);
         fotoConductor = findViewById(R.id.img_perfil_conductor);
-        placa_numerotelefono = findViewById(R.id.text_placa_telefono);
         direccion_inicio = findViewById(R.id.text_direccion_inicio);
         direccion_final = findViewById(R.id.text_direccion_fin);
         fecha = findViewById(R.id.text_fecha);
@@ -155,14 +157,14 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
                         double lat_final_real = obj.getDouble("latfinalreal");
                         double lng_final_real = obj.getDouble("lngfinalreal");
                         final String id_carrera = obj.getString("id_carrera");
-                        String placa = obj.getString("placa");
-                        String telefono = obj.getString("telefono");
                         int estado = obj.getInt("estado");
                         int costo = obj.getInt("costo_final");
                         int tipo = obj.getInt("tipo_pago");
                         int tipo_carrera = obj.getInt("tipo");
                         nombre.setText(obj.getString("nombre"));
-                        placa_numerotelefono.setText(placa + " ° " + telefono);
+
+                        placa.setText(obj.getString("placa"));
+                        telefono.setText(obj.getString("telefono"));
                         fecha.setText(obj.getString("fecha_pedido").substring(0, 16));
                         marca_auto.setText(obj.getString("marca") + " " + obj.getString("modelo"));
                         btn_ver_recorrido.setOnClickListener(new View.OnClickListener() {

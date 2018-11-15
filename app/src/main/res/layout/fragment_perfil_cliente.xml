@@ -52,6 +52,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
+                                android:visibility="gone"
                                 android:src="@drawable/edit_pencil" />
                         </LinearLayout>
 
