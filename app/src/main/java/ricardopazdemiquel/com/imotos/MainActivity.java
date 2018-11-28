@@ -1,6 +1,5 @@
 package ricardopazdemiquel.com.imotos;
 
-
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Intent;

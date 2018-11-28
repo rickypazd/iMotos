@@ -35,32 +35,79 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/text_inicioViaje"
+                        <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_icon_pointer_map"
-                            android:drawablePadding="10dp"
-                            android:background="@drawable/ic_button_border_gris"
-                            android:padding="10dp"
-                            android:textColor="#4d4f4e"
-                            android:textSize="15sp"
-                            tools:text="callea capitan velarde" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            app:cardCornerRadius="10dp"
+                            android:backgroundTint="@color/colorWhite"
+                            android:layout_marginEnd="20dp"
+                            >
 
-                        <TextView
-                            android:id="@+id/text_FinViaje"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:drawableLeft="@drawable/ic_icon_pointer_map2"
-                            android:drawablePadding="10dp"
-                            android:background="@drawable/ic_button_border_gris"
-                            android:padding="10dp"
-                            android:textColor="#4d4f4e"
-                            android:textSize="15sp"
-                            tools:text="ave tres passos al f" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/text_inicioViaje"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:background="@drawable/ic_button_favoritos"                                                                  android:drawableStart="@drawable/ic_icon_pointer_map"
+                                    android:drawablePadding="10dp"
+                                    android:hint="Dirección inicial"
+                                    android:inputType="text"
+                                    android:paddingLeft="10dp"
+                                    android:paddingTop="5dp"
+                                    android:textColor="@color/colorBlack"
+                                    android:textColorHint="@color/colorGris"
+                                    android:padding="10dp"
+                                    android:textSize="15sp" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="1dp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_marginEnd="10sp"
+                                    android:layout_marginStart="10sp"
+                                    android:background="@color/colorBlack" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+
+                                    <TextView
+                                        android:id="@+id/text_FinViaje"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginBottom="0dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/ic_button_favoritos"
+                                        android:drawablePadding="10dp"
+                                        android:drawableStart="@drawable/ic_icon_pointer_map2"
+                                        android:hint="Dirección final"
+                                        android:paddingLeft="10dp"
+                                        android:textColorHint="@color/colorGris"
+                                        android:textColor="@color/colorBlack"
+                                        android:paddingTop="5dp"
+                                        android:textSize="15sp"
+                                        android:padding="10dp"/>
+
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+
 
                         <View
                             android:layout_width="match_parent"
