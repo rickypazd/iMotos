@@ -26,6 +26,11 @@
         <item name="android:windowBackground">@drawable/color_degradiente</item>
     </style>
 
+    <style name="AppThemeThree" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

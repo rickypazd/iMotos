@@ -11,6 +11,7 @@
     <color name="colorGris">#626262</color>
     <color name="colorGris2">#4d4f4e</color>
     <color name="colorWhite">#fff</color>
+    <color name="colorface">#30477c</color>
 
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>
