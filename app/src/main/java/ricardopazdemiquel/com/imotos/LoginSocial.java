@@ -3,6 +3,7 @@ package ricardopazdemiquel.com.imotos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -72,6 +73,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
     private Button btnfacebook;
     private CheckBox check;
     private Boolean Ischeck = false;
+    private TextView tv_terminos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +82,19 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
 
         signInButton = findViewById(R.id.sign_in_button);
         btnfacebook = findViewById(R.id.btn_face);
+        tv_terminos = findViewById(R.id.tv_terminos);
         check = findViewById(R.id.check);
 
+        tv_terminos.setOnClickListener(this);
         btnfacebook.setOnClickListener(this);
         check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    Toast.makeText(LoginSocial.this, b+" check", Toast.LENGTH_SHORT).show();
+                    check.setBackgroundColor(Color.WHITE);
                     Ischeck = b;
-                }else {
-                    Toast.makeText(LoginSocial.this, b+" check", Toast.LENGTH_SHORT).show();
+                } else {
+                    check.setBackgroundColor(Color.WHITE);
                     Ischeck = b;
                 }
             }
@@ -209,16 +213,21 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
         }
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_face:
-                if(Ischeck){
+                if (Ischeck) {
                     InitLoginFacebook();
-                }else{
-                    check.setBackgroundColor(Color.RED);
+                } else {
+                    check.setBackgroundColor(Color.rgb(211, 211, 211));
+                    Toast.makeText(LoginSocial.this, "Es necesario aceptar los términos y condiciones", Toast.LENGTH_SHORT).show();
+                    //check.setBackgroundTintList(getResources().getColorStateList(R.color.red_A700));
                 }
+                break;
+            case R.id.tv_terminos:
+                Intent intent = new Intent(LoginSocial.this, Terminos_CondicionesActivity.class );
+                startActivity(intent);
                 break;
         }
     }

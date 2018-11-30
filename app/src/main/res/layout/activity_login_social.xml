@@ -25,8 +25,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
+            android:paddingStart="35dp"
+            android:paddingEnd="35dp"
             android:layout_centerInParent="true"
             android:orientation="vertical">
 
@@ -114,6 +114,7 @@
                     android:buttonTint="#4D6FA9"/>
 
                 <TextView
+                    android:id="@+id/tv_terminos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Acepto los términos y condiciones."
