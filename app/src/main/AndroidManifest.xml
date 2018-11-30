@@ -192,7 +192,7 @@
         <activity
             android:name=".LoginSocial"
             android:label="Login"
-            android:theme="@style/AppThemeThree"
+            android:theme="@style/AppThemeone"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Fragment.Producto_togo_Activity"

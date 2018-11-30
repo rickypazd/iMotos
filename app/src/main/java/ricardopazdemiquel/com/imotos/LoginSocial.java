@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,7 +58,7 @@ import ricardopazdemiquel.com.imotos.utiles.Contexto;
 import ricardopazdemiquel.com.imotos.utiles.Token;
 import ricardopazdemiquel.com.imotos.utils.Tools;
 
-public class LoginSocial extends AppCompatActivity  implements OnClickListener {
+public class LoginSocial extends AppCompatActivity implements OnClickListener {
 
     //login face
     private static final String TAG = "LoginSocial";
@@ -66,6 +68,7 @@ public class LoginSocial extends AppCompatActivity  implements OnClickListener {
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private Button btnfacebook;
+    private CheckBox check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +77,17 @@ public class LoginSocial extends AppCompatActivity  implements OnClickListener {
 
         signInButton = findViewById(R.id.sign_in_button);
         btnfacebook = findViewById(R.id.btn_face);
+        check = findViewById(R.id.check);
 
         btnfacebook.setOnClickListener(this);
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    Toast.makeText(LoginSocial.this, b+"verdadero", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         /*signInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -83,8 +95,6 @@ public class LoginSocial extends AppCompatActivity  implements OnClickListener {
              //   signIn();
             }
         });*/
-
-
 
         /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -192,12 +202,26 @@ public class LoginSocial extends AppCompatActivity  implements OnClickListener {
         }
     }
 
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_face:
+                InitLoginFacebook();
+                break;
+        }
+    }
+
+    /*private LoginButton loginBFace;
+    public LoginSocial(LoginButton loginBFace) {
+        this.loginBFace=loginBFace;
+    }*/
+
     private void InitLoginFacebook() {
         callbackManager = CallbackManager.Factory.create();
-
         loginButton = findViewById(R.id.loginFacebook);
         loginButton.setReadPermissions("email");
-
+        loginButton.callOnClick();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -267,7 +291,7 @@ public class LoginSocial extends AppCompatActivity  implements OnClickListener {
             }
 
             @Override
-                public void onCancel() {
+            public void onCancel() {
                 if (AccessToken.getCurrentAccessToken() == null) {
                     return; // already logged out
                 }
@@ -302,16 +326,6 @@ public class LoginSocial extends AppCompatActivity  implements OnClickListener {
         }
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_face:
-                InitLoginFacebook();
-                break;
-        }
-    }
-
 
     public class get_usr_face extends AsyncTask<Void, String, String> {
         private String id;
