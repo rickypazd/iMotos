@@ -110,7 +110,6 @@
                     android:id="@+id/check"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorBlack"
                     android:checked="false"
                     android:buttonTint="#4D6FA9"/>
 

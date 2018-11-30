@@ -3,7 +3,9 @@ package ricardopazdemiquel.com.imotos;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -69,6 +71,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
     private GoogleSignInClient mGoogleSignInClient;
     private Button btnfacebook;
     private CheckBox check;
+    private Boolean Ischeck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,11 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    Toast.makeText(LoginSocial.this, b+"verdadero", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginSocial.this, b+" check", Toast.LENGTH_SHORT).show();
+                    Ischeck = b;
+                }else {
+                    Toast.makeText(LoginSocial.this, b+" check", Toast.LENGTH_SHORT).show();
+                    Ischeck = b;
                 }
             }
         });
@@ -207,7 +214,11 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_face:
-                InitLoginFacebook();
+                if(Ischeck){
+                    InitLoginFacebook();
+                }else{
+                    check.setBackgroundColor(Color.RED);
+                }
                 break;
         }
     }
