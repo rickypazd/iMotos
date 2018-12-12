@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ricardopazdemiquel.com.imotos.Dialog.Cancelar_viaje_Dialog;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -62,6 +63,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
+import ricardopazdemiquel.com.imotos.Dialog.Producto_imoto_Dialog;
+import ricardopazdemiquel.com.imotos.Dialog.Ver_Producto_Dialog;
 import ricardopazdemiquel.com.imotos.clienteHTTP.HttpConnection;
 import ricardopazdemiquel.com.imotos.clienteHTTP.MethodType;
 import ricardopazdemiquel.com.imotos.clienteHTTP.StandarRequestConfiguration;
@@ -69,7 +72,7 @@ import ricardopazdemiquel.com.imotos.utiles.Contexto;
 import ricardopazdemiquel.com.imotos.utiles.DirectionsJSONParser;
 
 
-public class EsperandoConductor extends AppCompatActivity implements View.OnClickListener{
+public class EsperandoConductor extends AppCompatActivity implements View.OnClickListener {
     MapView mMapView;
     private GoogleMap googleMap;
     JSONObject json_carrera;
@@ -83,12 +86,13 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     private TextView text_numeroPlaca;
     private TextView text_Viajes;
     private Button btn_cancelar_viaje;
-
     private TextView text_ultimo_mensaje;
-
-
     private ImageView btn_enviar_mensaje;
     private ImageView btn_llamar;
+    private LinearLayout liner_mensaje;
+    private Button btn_mensaje;
+    private String mensaje;
+
     JSONObject Json_cancelarViaje;
 //    private LinearLayout perfil_condutor;
 
@@ -112,43 +116,55 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         btn_enviar_mensaje = findViewById(R.id.btn_enviar_mensaje);
         text_nombreAuto = findViewById(R.id.text_nombreAuto);
         text_numeroPlaca = findViewById(R.id.text_numeroPlaca);
-        text_Viajes= findViewById(R.id.text_Viajes);
+        text_Viajes = findViewById(R.id.text_Viajes);
         img_foto = findViewById(R.id.img_foto);
         Container_cancelar = findViewById(R.id.Container_cancelar);
         Container_verPerfil = findViewById(R.id.Container_verPerfil);
         btn_cancelar_viaje = findViewById(R.id.btn_cancelar_viaje);
         text_ultimo_mensaje = findViewById(R.id.text_ultimo_mensaje);
 
+        liner_mensaje = findViewById(R.id.liner_mensaje);
+        btn_mensaje = findViewById(R.id.btn_mensaje);
+
+        btn_mensaje.setOnClickListener(this);
         btn_cancelar_viaje.setOnClickListener(this);
 
+        Intent intent = getIntent();
         try {
-            json_carrera = new JSONObject(getIntent().getStringExtra("obj_carrera"));
-            if(json_carrera.getInt("estado")>=3){
-                    conductor_llego(getIntent());
+            String objeto = intent.getStringExtra("obj_carrera");
+            json_carrera = new JSONObject(objeto);
+            if (json_carrera.getInt("id_tipo") == 2) {
+                mensaje = json_carrera.getString("mensaje_str");
+                liner_mensaje.setVisibility(View.VISIBLE);
             }
+            if (json_carrera.getInt("estado") >= 3) {
+                conductor_llego(getIntent());
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        usr_log=getUsr_log();
 
-        View view =findViewById(R.id.button_sheet);
-        bottomSheetBehavior=BottomSheetBehavior.from(view);
+        usr_log = getUsr_log();
+
+        View view = findViewById(R.id.button_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(view);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
-
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState){
+                switch (newState) {
                     case BottomSheetBehavior.STATE_HIDDEN:
                         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                         break;
                 }
             }
+
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             }
         });
 
-        mMapView=findViewById(R.id.mapView2);
+        mMapView = findViewById(R.id.mapView2);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         MapsInitializer.initialize(this.getApplicationContext());
@@ -163,7 +179,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                     return;
                 }
                 mMap.setMyLocationEnabled(true);
-                if(json_carrera!=null){
+                if (json_carrera != null) {
                     hilo();
                 }
             }
@@ -187,7 +203,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         super.onResume();
 
         //broadcast  conductor cerca
-        if(broadcastReceiverMessage == null){
+        if (broadcastReceiverMessage == null) {
             broadcastReceiverMessage = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -195,22 +211,22 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 }
             };
         }
-        registerReceiver(broadcastReceiverMessage,new IntentFilter("conductor_cerca"));
+        registerReceiver(broadcastReceiverMessage, new IntentFilter("conductor_cerca"));
 
         //broadcast  conductor llego
-        if(broadcastReceiverMessageconductor == null){
+        if (broadcastReceiverMessageconductor == null) {
             broadcastReceiverMessageconductor = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    Toast.makeText(EsperandoConductor.this,"Tu conductor llegó", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EsperandoConductor.this, "Tu conductor llegó", Toast.LENGTH_SHORT).show();
                     conductor_llego(intent);
                 }
             };
         }
-        registerReceiver(broadcastReceiverMessageconductor,new IntentFilter("conductor_llego"));
+        registerReceiver(broadcastReceiverMessageconductor, new IntentFilter("conductor_llego"));
 
         //broadcast  inicio de carrera
-        if(broadcastReceiverInicioCarrera == null){
+        if (broadcastReceiverInicioCarrera == null) {
             broadcastReceiverInicioCarrera = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -218,10 +234,10 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 }
             };
         }
-        registerReceiver(broadcastReceiverInicioCarrera,new IntentFilter("Inicio_Carrera"));
+        registerReceiver(broadcastReceiverInicioCarrera, new IntentFilter("Inicio_Carrera"));
 
         //Broadcast finalizo carrera
-        if(broadcastReceiverFinalizoCarrera == null){
+        if (broadcastReceiverFinalizoCarrera == null) {
             broadcastReceiverFinalizoCarrera = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -229,10 +245,10 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 }
             };
         }
-        registerReceiver(broadcastReceiverFinalizoCarrera,new IntentFilter("Finalizo_Carrera"));
+        registerReceiver(broadcastReceiverFinalizoCarrera, new IntentFilter("Finalizo_Carrera"));
 
         // Broadcast Cancelo el viaje el conductor
-        if(broadcastReceiverCanceloCarrera == null){
+        if (broadcastReceiverCanceloCarrera == null) {
             broadcastReceiverCanceloCarrera = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -240,18 +256,19 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 }
             };
         }
-        registerReceiver(broadcastReceiverCanceloCarrera,new IntentFilter("cancelo_carrera"));
+        registerReceiver(broadcastReceiverCanceloCarrera, new IntentFilter("cancelo_carrera"));
 
     }
 
 
     private boolean hilo;
-    private void hilo(){
-        hilo=true;
+
+    private void hilo() {
+        hilo = true;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(hilo){
+                while (hilo) {
                     try {
                         new posicion_conductor().execute();
                         Thread.sleep(500);
@@ -264,6 +281,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     }
 
     private String number;
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
@@ -296,13 +314,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         startActivity(intent);
     }
 
-    private void notificacionReciber(Intent intent){
-        Toast.makeText(EsperandoConductor.this,"Tu conductor está cerca.",
+    private void notificacionReciber(Intent intent) {
+        Toast.makeText(EsperandoConductor.this, "Tu conductor está cerca.",
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void conductor_llego(Intent intent){
+    private void conductor_llego(Intent intent) {
         Container_cancelar.setVisibility(View.GONE);
+        Container_verPerfil.setVisibility(View.VISIBLE);
         try {
             new Get_ObtenerPerfilConductor(json_carrera.getString("id")).execute();
         } catch (JSONException e) {
@@ -310,52 +329,58 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void Inicio_Carrera(Intent intent){
-        Toast.makeText(EsperandoConductor.this,"Tu viaje ha comenzado. Que tengas buen viaje.",
+    private void Inicio_Carrera(Intent intent) {
+        Toast.makeText(EsperandoConductor.this, "Tu viaje ha comenzado. Que tengas buen viaje.",
                 Toast.LENGTH_SHORT).show();
         new buscar_carrera().execute();
         //perfil_condutor.setVisibility(View.VISIBLE);
     }
 
-    private void finalizo_carrera(Intent intenta){
-        Intent intent = new Intent( EsperandoConductor.this, finalizar_viajeCliente.class);
+    private void finalizo_carrera(Intent intenta) {
+        Intent intent = new Intent(EsperandoConductor.this, finalizar_viajeCliente.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("carrera",intenta.getStringExtra("carrera"));
+        intent.putExtra("carrera", intenta.getStringExtra("carrera"));
         startActivity(intent);
         finish();
     }
 
-    private void Cancelo_carrera(Intent intenta){
-        Intent intent = new Intent( EsperandoConductor.this, CanceloViaje_Cliente.class);
-        intent.putExtra("id_carrera",intenta.getStringExtra("id_carrera"));
+    private void Cancelo_carrera(Intent intenta) {
+        Intent intent = new Intent(EsperandoConductor.this, CanceloViaje_Cliente.class);
+        intent.putExtra("id_carrera", intenta.getStringExtra("id_carrera"));
         startActivity(intent);
         finish();
     }
 
 
-    private String obtenerDireccionesURL(LatLng origin, LatLng dest){
+    private String obtenerDireccionesURL(LatLng origin, LatLng dest) {
 
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
 
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
-        String key = "key="+getString(R.string.apikey);
+        String key = "key=" + getString(R.string.apikey);
 
-        String parameters = str_origin+"&"+str_dest;
+        String parameters = str_origin + "&" + str_dest;
 
         String output = "json";
 
-        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters+"&"+key;
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&" + key;
 
         return url;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_cancelar_viaje:
                 new Cancelar_viaje().execute();
                 break;
+            case R.id.btn_mensaje:
+                android.app.FragmentManager fragmentManager = getFragmentManager();
+                new Ver_Producto_Dialog(mensaje).show(fragmentManager, "Dialog");
+                break;
+
+
         }
     }
 
@@ -367,10 +392,10 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
 
             String data = "";
 
-            try{
+            try {
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("ERROR AL OBTENER INFO D",e.toString());
+            } catch (Exception e) {
+                Log.d("ERROR AL OBTENER INFO D", e.toString());
             }
             return data;
         }
@@ -385,7 +410,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> > {
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
@@ -393,30 +418,31 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
 
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
                 routes = parser.parse(jObject);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return routes;
         }
+
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
             MarkerOptions markerOptions = new MarkerOptions();
 
-            for(int i=0;i<result.size();i++){
+            for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<LatLng>();
                 lineOptions = new PolylineOptions();
 
                 List<HashMap<String, String>> path = result.get(i);
 
-                for(int j=0;j<path.size();j++){
-                    HashMap<String,String> point = path.get(j);
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
 
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
@@ -427,9 +453,9 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 //polylineOption
                 lineOptions.addAll(points);
                 lineOptions.width(5);
-                lineOptions.color(Color.rgb(93,56,146));
+                lineOptions.color(Color.rgb(93, 56, 146));
             }
-            if(lineOptions!=null) {
+            if (lineOptions != null) {
 
                 googleMap.addPolyline(lineOptions);
 
@@ -437,12 +463,12 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 float[] results = new float[1];
                 float sum = 0;
 
-                for(int i = 0; i < size; i++){
+                for (int i = 0; i < size; i++) {
                     Location.distanceBetween(
                             points.get(i).latitude,
                             points.get(i).longitude,
-                            points.get(i+1).latitude,
-                            points.get(i+1).longitude,
+                            points.get(i + 1).latitude,
+                            points.get(i + 1).longitude,
                             results);
                     sum += results[0];
                 }
@@ -456,7 +482,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
+        try {
             URL url = new URL(strUrl);
 
             // Creamos una conexion http
@@ -473,25 +499,26 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while( ( line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
             data = sb.toString();
 
             br.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.d("Exception", e.toString());
-        }finally{
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
         return data;
     }
 
-    private float dist=0;
+    private float dist = 0;
     private Marker marauto;
     private Marker mardest;
+
     private class posicion_conductor extends AsyncTask<Void, String, String> {
 
         @Override
@@ -502,36 +529,37 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         @Override
         protected String doInBackground(Void... params) {
 
-            Hashtable<String,String> param = new Hashtable<>();
+            Hashtable<String, String> param = new Hashtable<>();
             try {
-                int id=json_carrera.getInt("id");
-                param.put("evento","get_pos_conductor_x_id_carrera");
-                param.put("id",id+"");
+                int id = json_carrera.getInt("id");
+                param.put("evento", "get_pos_conductor_x_id_carrera");
+                param.put("id", id + "");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
-            if(resp==null){
-                Toast.makeText(EsperandoConductor.this,"Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
+            if (resp == null) {
+                Toast.makeText(EsperandoConductor.this, "Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else{
+            } else {
                 if (resp.equals("falso")) {
-                    Toast.makeText(EsperandoConductor.this,"Perdimos la conexión con tu conductor.",
+                    Toast.makeText(EsperandoConductor.this, "Perdimos la conexión con tu conductor.",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     try {
-                        JSONObject obj=new JSONObject(resp);
-                        LatLng ll1 = new LatLng(obj.getDouble("lat"),obj.getDouble("lng"));
+                        JSONObject obj = new JSONObject(resp);
+                        LatLng ll1 = new LatLng(obj.getDouble("lat"), obj.getDouble("lng"));
                         LatLng ll2;
-                        if(obj.getInt("estado")!=json_carrera.getInt("estado")){
-                            int estado=obj.getInt("estado");
-                            json_carrera.put("estado",estado);
-                            switch (estado){
+                        if (obj.getInt("estado") != json_carrera.getInt("estado")) {
+                            int estado = obj.getInt("estado");
+                            json_carrera.put("estado", estado);
+                            switch (estado) {
                                 case 1:
                                     break;
                                 case 2:
@@ -543,7 +571,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                                     Inicio_Carrera(new Intent());
                                     break;
                                 case 5:
-                                    finalizo_carrera(new Intent().putExtra("carrera",json_carrera.toString()));
+                                    finalizo_carrera(new Intent().putExtra("carrera", json_carrera.toString()));
                                     break;
                                 case 6:
                                     break;
@@ -551,14 +579,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                                     break;
                             }
                         }
-                        if(obj.getInt("estado")==4){
-                            ll2= new LatLng(json_carrera.getDouble("latfinal"),json_carrera.getDouble("lngfinal"));
+                        if (obj.getInt("estado") == 4) {
+                            ll2 = new LatLng(json_carrera.getDouble("latfinal"), json_carrera.getDouble("lngfinal"));
                             //cfdfgd
-                        }else{
-                            ll2=new LatLng(json_carrera.getDouble("latinicial"),json_carrera.getDouble("lnginicial"));
+                        } else {
+                            ll2 = new LatLng(json_carrera.getDouble("latinicial"), json_carrera.getDouble("lnginicial"));
                         }
 
-                        String url = obtenerDireccionesURL(ll1,ll2);
+                        String url = obtenerDireccionesURL(ll1, ll2);
                         float[] results = new float[1];
                         Location.distanceBetween(
                                 ll1.latitude,
@@ -566,30 +594,30 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                                 ll2.latitude,
                                 ll2.longitude,
                                 results);
-                        if((dist-results[0])> 20 || (dist-results[0])< -20|| dist==0){
+                        if ((dist - results[0]) > 20 || (dist - results[0]) < -20 || dist == 0) {
                             googleMap.clear();
-                            mardest=null;
-                            marauto=null;
-                            dist=results[0];
+                            mardest = null;
+                            marauto = null;
+                            dist = results[0];
                             LatLngBounds.Builder builder = new LatLngBounds.Builder();
                             builder.include(ll1);
                             builder.include(ll2);
-                            LatLngBounds bounds=builder.build();
-                            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,300);
+                            LatLngBounds bounds = builder.build();
+                            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 300);
                             googleMap.moveCamera(cu);
-                            DownloadTask downloadTask= new DownloadTask();
+                            DownloadTask downloadTask = new DownloadTask();
                             downloadTask.execute(url);
                         }
-                        if(mardest==null){
+                        if (mardest == null) {
                             googleMap.addMarker(new MarkerOptions().position(ll2).title("FIN").icon(Fin_bitmapDescriptorFromVector(getApplication(), R.drawable.asetmar)));
-                        }else{
+                        } else {
                             mardest.setPosition(ll2);
                         }
                         float degre = Float.parseFloat(obj.getString("bearing"));
-                        if(marauto==null){
+                        if (marauto == null) {
 
-                            marauto=googleMap.addMarker(new MarkerOptions().position(ll1).title("AUTO").rotation(degre).icon(Auto_bitmapDescriptorFromVector(getApplication(), R.drawable.auto)).anchor(0.5f,0.5f));
-                        }else{
+                            marauto = googleMap.addMarker(new MarkerOptions().position(ll1).title("AUTO").rotation(degre).icon(Auto_bitmapDescriptorFromVector(getApplication(), R.drawable.auto)).anchor(0.5f, 0.5f));
+                        } else {
                             marauto.setPosition(ll1);
                             marauto.setRotation(degre);
                         }
@@ -600,6 +628,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
@@ -633,10 +662,10 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     }
 
 
-
     private class buscar_carrera extends AsyncTask<Void, String, String> {
 
         private ProgressDialog progreso;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -645,28 +674,29 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         @Override
         protected String doInBackground(Void... params) {
             publishProgress("por favor espere...");
-            Hashtable<String,String> param = new Hashtable<>();
-            param.put("evento","get_carrera_id");
+            Hashtable<String, String> param = new Hashtable<>();
+            param.put("evento", "get_carrera_id");
             try {
-                param.put("id",json_carrera.getInt("id")+"");
+                param.put("id", json_carrera.getInt("id") + "");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
-            if(resp == null){
-                Toast.makeText(EsperandoConductor.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+            if (resp == null) {
+                Toast.makeText(EsperandoConductor.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else if (resp.isEmpty()) {
-                Toast.makeText(EsperandoConductor.this,"Error al obtener datos.", Toast.LENGTH_SHORT).show();
-            }else{
+            } else if (resp.isEmpty()) {
+                Toast.makeText(EsperandoConductor.this, "Error al obtener datos.", Toast.LENGTH_SHORT).show();
+            } else {
                 try {
                     JSONObject obj = new JSONObject(resp);
-                    json_carrera=obj;
+                    json_carrera = obj;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -677,12 +707,12 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     public class Get_ObtenerPerfilConductor extends AsyncTask<Void, String, String> {
         private String id;
 
-        public Get_ObtenerPerfilConductor(String id){
-            this.id=id;
+        public Get_ObtenerPerfilConductor(String id) {
+            this.id = id;
         }
+
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
         }
 
@@ -690,19 +720,20 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         protected String doInBackground(Void... params) {
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_info_con_carrera");
-            parametros.put("id_carrera",id);
+            parametros.put("id_carrera", id);
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
             try {
-                if(resp == null){
-                    Toast.makeText(EsperandoConductor.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+                if (resp == null) {
+                    Toast.makeText(EsperandoConductor.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                     Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
                 }
-                if(!resp.isEmpty()) {
+                if (!resp.isEmpty()) {
                     final JSONObject object = new JSONObject(resp);
                     if (object != null) {
                         final String nombreConductor = object.getString("nombre").toString();
@@ -712,9 +743,9 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                         String marca = object.getString("marca").toString();
                         int viajes = object.getInt("cant_car");
 
-                       // int amable = object.getInt("amable");
-                       // int buena_ruta = object.getInt("buena_ruta");
-                       // int auto_limpio = object.getInt("auto_limpio");
+                        // int amable = object.getInt("amable");
+                        // int buena_ruta = object.getInt("buena_ruta");
+                        // int auto_limpio = object.getInt("auto_limpio");
                         String ultimo_mensaje = object.getString("ultimo_mensaje");
 
                         String placa = object.getString("placa");
@@ -727,15 +758,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
 
                         text_Viajes.setText("ha completado: " + viajes + " viajes");
 
-                        Container_verPerfil.setVisibility(View.VISIBLE);
                         btn_enviar_mensaje.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(EsperandoConductor.this,Chat_Activity.class);
+                                Intent intent = new Intent(EsperandoConductor.this, Chat_Activity.class);
                                 try {
-                                    intent.putExtra("id_receptor",object.getString("id"));
-                                    intent.putExtra("nombre_receptor",nombreConductor+" "+apellido_pa+" "+apellido_ma);
-                                    intent.putExtra("id_emisor",usr_log.getString("id"));
+                                    intent.putExtra("id_receptor", object.getString("id"));
+                                    intent.putExtra("nombre_receptor", nombreConductor + " " + apellido_pa + " " + apellido_ma);
+                                    intent.putExtra("id_emisor", usr_log.getString("id"));
                                     intent.putExtra("foto_perfil", object.getString("foto_perfil"));
                                     startActivity(intent);
                                 } catch (JSONException e) {
@@ -749,7 +779,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                                 try {
                                     String telefono = object.getString("telefono");
 
-                                    number=telefono;
+                                    number = telefono;
 
                                     int permissionCheck = ContextCompat.checkSelfPermission(
                                             EsperandoConductor.this, Manifest.permission.CALL_PHONE);
@@ -772,13 +802,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                             new AsyncTaskLoadImage(img_foto).execute(getString(R.string.url_foto)+object.getString("foto_perfil"));
                         }
                     }*/
-                }else{
-                    Toast.makeText(EsperandoConductor.this,"Error al obtener Datos", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(EsperandoConductor.this, "Error al obtener Datos", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
@@ -820,23 +851,24 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             progreso.setCancelable(false);
             progreso.show();
         }
+
         @Override
         protected String doInBackground(Void... params) {
             publishProgress("por favor espere...");
-            Hashtable<String,String> param = new Hashtable<>();
-            param.put("evento","cancelar_carrera");
+            Hashtable<String, String> param = new Hashtable<>();
+            param.put("evento", "cancelar_carrera");
 
             try {
                 id_usr = getUsr_log().getString("id");
-                param.put("id_carrera",json_carrera.getInt("id")+"");
-                param.put("id_usr",id_usr);
-                param.put("tipo_cancelacion",TIPO_CANCELACION+"");
-                param.put("id_tipo",ID_TIPO+"");
+                param.put("id_carrera", json_carrera.getInt("id") + "");
+                param.put("id_usr", id_usr);
+                param.put("tipo_cancelacion", TIPO_CANCELACION + "");
+                param.put("id_tipo", ID_TIPO + "");
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String respuesta ="";
+            String respuesta = "";
             try {
                 respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, param));
             } catch (Exception e) {
@@ -844,16 +876,17 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             }
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
             progreso.dismiss();
-            if(resp == null){
-                Toast.makeText(EsperandoConductor.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+            if (resp == null) {
+                Toast.makeText(EsperandoConductor.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else if(resp.isEmpty()) {
-                Toast.makeText(EsperandoConductor.this,"Error al obtener datos", Toast.LENGTH_SHORT).show();
-            }else{
+            } else if (resp.isEmpty()) {
+                Toast.makeText(EsperandoConductor.this, "Error al obtener datos", Toast.LENGTH_SHORT).show();
+            } else {
                 try {
                     Json_cancelarViaje = new JSONObject(resp);
                     android.app.FragmentManager fragmentManager = getFragmentManager();
@@ -863,6 +896,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                 }
             }
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
@@ -870,13 +904,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public void confirmar(){
+    public void confirmar() {
         new Confirmar_cancelacion().execute();
     }
 
     public class Confirmar_cancelacion extends AsyncTask<Void, String, String> {
 
         private ProgressDialog progreso;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -886,13 +921,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             progreso.setCancelable(false);
             progreso.show();
         }
+
         @Override
         protected String doInBackground(Void... params) {
             publishProgress("por favor espere...");
-            Hashtable<String,String> param = new Hashtable<>();
-            param.put("evento","ok_cancelar_carrera");
-            param.put("json",Json_cancelarViaje.toString());
-            String respuesta ="";
+            Hashtable<String, String> param = new Hashtable<>();
+            param.put("evento", "ok_cancelar_carrera");
+            param.put("json", Json_cancelarViaje.toString());
+            String respuesta = "";
             try {
                 respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, param));
             } catch (Exception e) {
@@ -900,24 +936,26 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             }
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
             progreso.dismiss();
-            if(resp == null){
-                Toast.makeText(EsperandoConductor.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+            if (resp == null) {
+                Toast.makeText(EsperandoConductor.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else if(resp.isEmpty()){
-                Toast.makeText(EsperandoConductor.this,"Error al obtener datos.", Toast.LENGTH_SHORT).show();
-            }else if(resp.contains("exito")) {
-                Toast.makeText(EsperandoConductor.this,"Viaje cancelado.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(EsperandoConductor.this , PedirSieteMap.class);
+            } else if (resp.isEmpty()) {
+                Toast.makeText(EsperandoConductor.this, "Error al obtener datos.", Toast.LENGTH_SHORT).show();
+            } else if (resp.contains("exito")) {
+                Toast.makeText(EsperandoConductor.this, "Viaje cancelado.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EsperandoConductor.this, PedirSieteMap.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-            }else{
-                Toast.makeText(EsperandoConductor.this,"Error al obtener datos.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(EsperandoConductor.this, "Error al obtener datos.", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
@@ -925,29 +963,31 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public class AsyncTaskLoadImage  extends AsyncTask<String, String, Bitmap> {
+    public class AsyncTaskLoadImage extends AsyncTask<String, String, Bitmap> {
         private final static String TAG = "AsyncTaskLoadImage";
         private ImageView imageView;
+
         public AsyncTaskLoadImage(ImageView imageView) {
             this.imageView = imageView;
         }
+
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
                 URL url = new URL(params[0]);
-                bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
             }
             return bitmap;
         }
+
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             imageView.setImageBitmap(bitmap);
         }
     }
-
 
 
 }

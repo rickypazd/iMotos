@@ -83,7 +83,6 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
             String id_carrera = intent.getStringExtra("id_carrera");
             new get_viaje_detalle(id_carrera).execute();
         }
-
     }
 
     // Opcion para ir atras sin reiniciar el la actividad anterior de nuevo
@@ -173,30 +172,12 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
                                 verViaje(Integer.parseInt(id_carrera));
                             }
                         });
-                        switch (8) {
+                        switch (tipo_carrera) {
                             case 1:
-                                text_tipo_carrera.setText("Siete Estándar");
+                                text_tipo_carrera.setText("Moto Taxi");
                                 break;
                             case 2:
-                                text_tipo_carrera.setText("Siete To go");
-                                break;
-                            case 3:
-                                text_tipo_carrera.setText("Siete Maravilla");
-                                break;
-                            case 4:
-                                text_tipo_carrera.setText("Super Siete");
-                                break;
-                            case 5:
-                                text_tipo_carrera.setText("Siete 4x4");
-                                break;
-                            case 6:
-                                text_tipo_carrera.setText("Siete Camioneta");
-                                break;
-                            case 7:
-                                text_tipo_carrera.setText("Siete 3 filas");
-                                break;
-                            case 8:
-                                text_tipo_carrera.setText("Estandar");
+                                text_tipo_carrera.setText("Mensajeria");
                                 break;
                         }
                         if (obj.getString("foto_perfil").length() > 0) {

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/backgroundcolor2"
         app:titleTextColor="@color/colorBlack"
-        app:title="Transacciones"
+        app:title="Billetera"
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
     </android.support.v7.widget.Toolbar>

@@ -128,8 +128,8 @@
 
                         <com.mikhaellopez.circularimageview.CircularImageView
                             android:id="@+id/img_perfil_conductor"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:src="@drawable/ic_icon_perfil"
@@ -137,7 +137,6 @@
                         </com.mikhaellopez.circularimageview.CircularImageView>
 
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -158,16 +157,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_redondo1_finalizar"
+                            android:padding="3dp"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:paddingEnd="5dp"
-                                android:paddingStart="5dp"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:text="Placa"
+                                android:paddingStart="5dp"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="20dp" />
 
@@ -175,8 +173,6 @@
                                 android:id="@+id/text_placa"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:paddingEnd="5dp"
                                 android:layout_weight="1"
                                 android:paddingStart="5dp"
                                 android:gravity="right"
@@ -195,8 +191,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:paddingEnd="5dp"
-                                android:paddingStart="5dp"
                                 android:layout_weight="1"
                                 android:text="Telefóno"
                                 android:textColor="@color/colorBlack"
@@ -207,9 +201,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
-                                android:paddingEnd="5dp"
                                 android:layout_weight="1"
-                                android:paddingStart="5dp"
                                 android:gravity="right"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="16dp" />
@@ -244,15 +236,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="20sp"
+                    android:layout_marginStart="20sp"
                     android:orientation="vertical">
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="30sp"
-                        android:layout_marginStart="30sp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -261,7 +252,7 @@
                             android:layout_weight="1"
                             android:text="Tipo viaje"
                             android:textColor="@color/colorBlack"
-                            android:textSize="15sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/text_tipo_carrera"
@@ -271,7 +262,7 @@
                             android:gravity="right"
                             android:text=""
                             android:textColor="@color/colorBlack"
-                            android:textSize="15sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -279,8 +270,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="30sp"
-                        android:layout_marginStart="30sp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -290,7 +279,7 @@
                             android:layout_weight="1"
                             android:text=""
                             android:textColor="@color/colorBlack"
-                            android:textSize="15sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/text_auto_marca"
@@ -298,9 +287,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:text="Kia picanto"
+                            android:text=""
                             android:textColor="@color/colorBlack"
-                            android:textSize="15sp" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -308,16 +297,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="30sp"
-                        android:layout_marginStart="30sp"
                         android:background="#626262"></View>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="30sp"
-                        android:layout_marginStart="30sp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -344,8 +329,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="30sp"
-                        android:layout_marginStart="30sp"
                         android:orientation="horizontal">
 
                         <TextView
