@@ -56,6 +56,7 @@
                 android:layout_height="140dp"
                 android:layout_weight="1"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:gravity="fill_horizontal"
                 android:background="@drawable/ic_button_favoritos"
                 android:hint="Escribe un comentario..."
@@ -76,9 +77,6 @@
                 android:textColor="@color/colorPrimary2"
                 android:layout_gravity="center"/>
 
-
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>
