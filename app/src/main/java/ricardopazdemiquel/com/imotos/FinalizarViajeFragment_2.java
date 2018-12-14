@@ -46,7 +46,7 @@ public class FinalizarViajeFragment_2 extends Fragment implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btn_enviar_mensaje:
                 String mensaje = edit_mensaje.getText().toString().trim();
-                ((finalizar_viajeCliente)getActivity()).finalizo(mensaje , false , false, false);
+                //((finalizar_viajeCliente)getActivity()).finalizo(mensaje , false , false, false);
                 break;
             /*case R.id.btn_amable:
                 if(amable == false){

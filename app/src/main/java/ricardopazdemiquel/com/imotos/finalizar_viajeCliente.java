@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RatingBar;
 
 import org.json.JSONException;
@@ -22,15 +23,16 @@ import ricardopazdemiquel.com.imotos.utiles.Contexto;
 
 public class finalizar_viajeCliente extends AppCompatActivity implements View.OnClickListener {
 
-   // private Button nombre;
+    // private Button nombre;
 
     private RatingBar ratingBar;
     //private int id_carrera;
     private JSONObject carrera;
     Fragment fragment_1 = null;
-    Fragment fragment_2  = null;
+    //Fragment fragment_2  = null;
     private float ratings;
     private int frag;
+    private Button btn_enviar_mensaje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,36 +46,39 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        btn_enviar_mensaje = findViewById(R.id.btn_enviar_mensaje);
+        btn_enviar_mensaje.setOnClickListener(this);
 
         ratingBar = findViewById(R.id.ratingBar);
-        fragment_1= new FinalizarViajeFragment_1();
-        fragment_2= new FinalizarViajeFragment_2();
-        getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment,fragment_1).commit();
+        fragment_1 = new FinalizarViajeFragment_1();
+        //fragment_2= new FinalizarViajeFragment_2();
+        getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment, fragment_1).commit();
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 ratings = rating;
-                if(frag == 0){
+                /*if(frag == 0){
                     frag = getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment,fragment_2).commit();
-                }
+                }*/
             }
         });
     }
 
-    public JSONObject get_carrera(){
+    public JSONObject get_carrera() {
         return carrera;
     }
+
     @Override
     public void onClick(View view) {
-
-    }
-
-    public void finalizo(String mensaje , boolean amable, boolean auto_limpio, boolean buena_ruta){
-        try {
-            new Finalizo(carrera.getInt("id"), ratings, mensaje, amable ,auto_limpio,buena_ruta).execute();
-        } catch (JSONException e) {
-            e.printStackTrace();
+        switch (view.getId()) {
+            case R.id.btn_enviar_mensaje:
+                try {
+                    new Finalizo(carrera.getInt("id"), ratings, "", false, false, false);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -88,7 +93,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
         boolean auto_limpio;
         boolean buena_ruta;
 
-        public Finalizo(int id_carrera , float finalizo , String mensaje , boolean amable , boolean auto_limpio , boolean buena_ruta) {
+        public Finalizo(int id_carrera, float finalizo, String mensaje, boolean amable, boolean auto_limpio, boolean buena_ruta) {
             this.id_carrera = id_carrera;
             this.calificacion = finalizo;
             this.amable = amable;
@@ -112,12 +117,12 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
             publishProgress("por favor espere...");
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "finalizo_carrera_cliente");
-            parametros.put("id_carrera",id_carrera+"");
-            parametros.put("calificacion",calificacion+"");
-            parametros.put("amable",amable+"");
-            parametros.put("auto_limpio",auto_limpio+"");
-            parametros.put("buena_ruta",buena_ruta+"");
-            parametros.put("mensaje",mensaje+"");
+            parametros.put("id_carrera", id_carrera + "");
+            parametros.put("calificacion", calificacion + "");
+            parametros.put("amable", amable + "");
+            parametros.put("auto_limpio", auto_limpio + "");
+            parametros.put("buena_ruta", buena_ruta + "");
+            parametros.put("mensaje", mensaje + "");
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
@@ -126,7 +131,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
             progreso.dismiss();
-            if(resp != null) {
+            if (resp != null) {
                 if (resp.equals("falso")) {
                     Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
                     return;
@@ -139,11 +144,11 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
                 }
             }
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
 
         }
     }
-
 }
