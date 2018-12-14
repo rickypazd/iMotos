@@ -86,7 +86,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     private TextView text_numeroPlaca;
     private TextView text_Viajes;
     private Button btn_cancelar_viaje;
-    private TextView text_ultimo_mensaje;
+    //private TextView text_ultimo_mensaje;
     private ImageView btn_enviar_mensaje;
     private ImageView btn_llamar;
     private LinearLayout liner_mensaje;
@@ -121,7 +121,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         Container_cancelar = findViewById(R.id.Container_cancelar);
         Container_verPerfil = findViewById(R.id.Container_verPerfil);
         btn_cancelar_viaje = findViewById(R.id.btn_cancelar_viaje);
-        text_ultimo_mensaje = findViewById(R.id.text_ultimo_mensaje);
+        //text_ultimo_mensaje = findViewById(R.id.text_ultimo_mensaje);
 
         liner_mensaje = findViewById(R.id.liner_mensaje);
         btn_mensaje = findViewById(R.id.btn_mensaje);
@@ -754,9 +754,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                         text_numeroPlaca.setText(placa);
 
 
-                        text_ultimo_mensaje.setText(ultimo_mensaje);
-
-                        text_Viajes.setText("ha completado: " + viajes + " viajes");
+                        text_Viajes.setText("Completo: " + viajes + " carreras");
 
                         btn_enviar_mensaje.setOnClickListener(new View.OnClickListener() {
                             @Override

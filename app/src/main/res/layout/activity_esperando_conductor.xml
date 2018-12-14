@@ -21,11 +21,11 @@
             android:id="@+id/btn_mensaje"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="4dp"
             android:background="@color/colorPrimary2"
-            android:text="mensaje"
+            android:text="Ver Mensajeria "
             android:textAllCaps="false"
             android:textColor="@color/colorBlack"
             android:textSize="22dp" />
@@ -66,7 +66,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             app:behavior_hideable="true"
-            app:behavior_peekHeight="55dp"
+            app:behavior_peekHeight="190dp"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
             <LinearLayout
@@ -87,56 +87,29 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
-                    android:gravity="center"
+                    android:gravity="center|start"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:id="@+id/img_photo"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/ic_icon_perfil"></com.mikhaellopez.circularimageview.CircularImageView>
+
+                    <TextView
+                        android:id="@+id/text_Viajes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/btn_llamar"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_phone2" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <com.mikhaellopez.circularimageview.CircularImageView
-                            android:id="@+id/img_photo"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:src="@drawable/ic_icon_perfil"></com.mikhaellopez.circularimageview.CircularImageView>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/btn_enviar_mensaje"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            android:drawableStart="@drawable/ic_sobre"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_chat" />
-
-                    </LinearLayout>
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="Completo 45 carreras"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="18dp" />
 
                 </LinearLayout>
 
@@ -144,6 +117,63 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/grey_10" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:gravity="start|center"
+                        android:inputType="textPersonName"
+                        android:text="LLAMAR"
+                        android:textColor="@color/colorPrimary2"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/btn_llamar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_phone2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_weight="1"
+                        android:gravity="start|center"
+                        android:inputType="textPersonName"
+                        android:text="MENSAJE"
+                        android:textColor="@color/colorPrimary2"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/btn_enviar_mensaje"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:drawableStart="@drawable/ic_sobre"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_chat" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -252,52 +282,8 @@
                     android:layout_height="1dp"
                     android:background="@color/grey_10" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/text_Viajes"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:text="Ha completado 256 viajes"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginStart="40dp"
-                    android:gravity="center">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:backgroundTint="@color/amber_A100"
-                        app:cardCornerRadius="20dp">
-
-                        <TextView
-                            android:id="@+id/text_ultimo_mensaje"
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:inputType="textMultiLine"
-                            android:padding="10dp"
-                            android:text="nombre"
-                            android:textColor="@color/colorBlack" />
-
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </FrameLayout>
