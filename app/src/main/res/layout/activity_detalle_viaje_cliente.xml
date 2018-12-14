@@ -24,8 +24,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,11 +43,10 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    app:cardCornerRadius="10dp"
-                    android:backgroundTint="@color/colorWhite"
                     android:layout_marginEnd="20dp"
-                    >
+                    android:layout_marginStart="20dp"
+                    android:backgroundTint="@color/colorWhite"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -61,24 +59,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:background="@drawable/ic_button_favoritos"                                                                  android:drawableStart="@drawable/ic_icon_pointer_map"
+                            android:background="@drawable/ic_button_favoritos"
                             android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/ic_icon_pointer_map"
                             android:hint="Dirección inicial"
+                            android:inputType="textMultiLine"
+                            android:padding="10dp"
                             android:paddingLeft="10dp"
                             android:paddingTop="5dp"
                             android:textColor="@color/colorBlack"
                             android:textColorHint="@color/colorGris"
-                            android:inputType="textMultiLine"
-                            android:padding="10dp"
                             android:textSize="15sp" />
 
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_marginTop="2dp"
                             android:layout_marginBottom="2dp"
                             android:layout_marginEnd="10sp"
                             android:layout_marginStart="10sp"
+                            android:layout_marginTop="2dp"
                             android:background="@color/colorBlack" />
 
                         <LinearLayout
@@ -98,13 +97,13 @@
                                 android:drawablePadding="10dp"
                                 android:drawableStart="@drawable/ic_icon_pointer_map2"
                                 android:hint="Dirección final"
-                                android:paddingLeft="10dp"
-                                android:textColorHint="@color/colorGris"
-                                android:textColor="@color/colorBlack"
-                                android:paddingTop="5dp"
                                 android:inputType="textMultiLine"
-                                android:textSize="15sp"
-                                android:padding="10dp"/>
+                                android:padding="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:textColor="@color/colorBlack"
+                                android:textColorHint="@color/colorGris"
+                                android:textSize="15sp" />
 
 
                         </LinearLayout>
@@ -133,8 +132,7 @@
                             android:layout_gravity="center"
                             android:padding="10dp"
                             android:src="@drawable/ic_icon_perfil"
-                            app:civ_border_width="2dp">
-                        </com.mikhaellopez.circularimageview.CircularImageView>
+                            app:civ_border_width="2dp"></com.mikhaellopez.circularimageview.CircularImageView>
 
                     </LinearLayout>
 
@@ -157,15 +155,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_redondo1_finalizar"
-                            android:padding="3dp"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:padding="3dp">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Placa"
                                 android:paddingStart="5dp"
+                                android:text="Placa"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="20dp" />
 
@@ -174,8 +172,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingStart="5dp"
                                 android:gravity="right"
+                                android:paddingStart="5dp"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="20dp" />
 
@@ -222,8 +220,8 @@
                     android:paddingStart="10dp"
                     android:text="Ver recorrido"
                     android:textAllCaps="false"
-                        android:visibility="gone"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="@color/colorBlack"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <FrameLayout
