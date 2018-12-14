@@ -74,6 +74,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
     private CheckBox check;
     private Boolean Ischeck = false;
     private TextView tv_terminos;
+    private Button logestandar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,9 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
         btnfacebook = findViewById(R.id.btn_face);
         tv_terminos = findViewById(R.id.tv_terminos);
         check = findViewById(R.id.check);
+
+        logestandar = findViewById(R.id.logestandar);
+        logestandar.setOnClickListener(this);
 
         tv_terminos.setOnClickListener(this);
         btnfacebook.setOnClickListener(this);
@@ -228,6 +232,10 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
             case R.id.tv_terminos:
                 Intent intent = new Intent(LoginSocial.this, Terminos_CondicionesActivity.class );
                 startActivity(intent);
+                break;
+            case R.id.logestandar:
+                Intent intent3 = new Intent(LoginSocial.this, Iniciar_Sesion_Activity.class );
+                startActivity(intent3);
                 break;
         }
     }
