@@ -28,7 +28,7 @@ import ricardopazdemiquel.com.imotos.clienteHTTP.MethodType;
 import ricardopazdemiquel.com.imotos.clienteHTTP.StandarRequestConfiguration;
 import ricardopazdemiquel.com.imotos.utiles.Token;
 
-public class Preferencias extends AppCompatActivity implements View.OnClickListener{
+public class Preferencias extends AppCompatActivity implements View.OnClickListener {
 
 
     private LinearLayout liner_ver_perfil;
@@ -62,9 +62,9 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
                 String apellido_pa = usr_log.getString("apellido_pa");
                 String apellido_ma = usr_log.getString("apellido_ma");
                 text_nombre.setText(nombre);
-                text_apellidos.setText(apellido_pa+" "+apellido_ma);
-                if(usr_log.getString("foto_perfil").length()>0){
-                    new AsyncTaskLoadImage(img_photo).execute(getString(R.string.url_foto)+usr_log.getString("foto_perfil"));
+                text_apellidos.setText(apellido_pa + " " + apellido_ma);
+                if (usr_log.getString("foto_perfil").length() > 0) {
+                    new AsyncTaskLoadImage(img_photo).execute(getString(R.string.url_foto) + usr_log.getString("foto_perfil"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -109,15 +109,15 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.liner_sign_out:
                 JSONObject usr = getUsr_log();
-                SharedPreferences preferencias = getSharedPreferences("myPref",MODE_PRIVATE);
+                SharedPreferences preferencias = getSharedPreferences("myPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();
                 editor.putString("usr_log", "");
                 editor.commit();
                 try {
-                    new Desconectarse(usr.getInt("id"),Token.currentToken).execute();
+                    new Desconectarse(usr.getInt("id"), Token.currentToken).execute();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -134,23 +134,26 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public class AsyncTaskLoadImage  extends AsyncTask<String, String, Bitmap> {
+    public class AsyncTaskLoadImage extends AsyncTask<String, String, Bitmap> {
         private final static String TAG = "AsyncTaskLoadImage";
         private ImageView imageView;
+
         public AsyncTaskLoadImage(ImageView imageView) {
             this.imageView = imageView;
         }
+
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
                 URL url = new URL(params[0]);
-                bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
             }
             return bitmap;
         }
+
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             imageView.setImageBitmap(bitmap);
@@ -158,13 +161,15 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
     }
 
     private class Desconectarse extends AsyncTask<Void, String, String> {
-        private int  id  ;
-        private String nombre ;
-        public Desconectarse(int id ,String nombre ) {
-            this.id= id;
-            this.nombre= nombre;
+        private int id;
+        private String nombre;
+
+        public Desconectarse(int id, String nombre) {
+            this.id = id;
+            this.nombre = nombre;
 
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -172,10 +177,10 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected String doInBackground(Void... params) {
-            Hashtable<String,String> param = new Hashtable<>();
-            param.put("evento","desconectarse");
-            param.put("id",id+"");
-            param.put("token",nombre);
+            Hashtable<String, String> param = new Hashtable<>();
+            param.put("evento", "desconectarse");
+            param.put("id", id + "");
+            param.put("token", nombre);
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
@@ -185,6 +190,7 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(pacientes);
 
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
