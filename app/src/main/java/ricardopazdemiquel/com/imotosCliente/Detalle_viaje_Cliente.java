@@ -54,7 +54,6 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
     private static final int EFECTIVO = 1;
     private static final int CREDITO = 2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +78,7 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
         text_tipo_carrera = findViewById(ricardopazdemiquel.com.imotos.R.id.text_tipo_carrera);
 
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             String id_carrera = intent.getStringExtra("id_carrera");
             new get_viaje_detalle(id_carrera).execute();
         }
@@ -126,8 +125,8 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
         protected String doInBackground(Void... params) {
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_viaje_detalle");
-            parametros.put("id",id);
-            String respuesta ="";
+            parametros.put("id", id);
+            String respuesta = "";
             try {
                 respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
             } catch (Exception ex) {
@@ -135,17 +134,18 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
             }
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(final String success) {
             super.onPostExecute(success);
             progreso.dismiss();
-            if (success == null){
-                Toast.makeText(Detalle_viaje_Cliente.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+            if (success == null) {
+                Toast.makeText(Detalle_viaje_Cliente.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else if( success.equals("falso")){
-                Toast.makeText(Detalle_viaje_Cliente.this,"error al obtener datos.", Toast.LENGTH_SHORT).show();
+            } else if (success.equals("falso")) {
+                Toast.makeText(Detalle_viaje_Cliente.this, "error al obtener datos.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "error al obtener datos.");
-            }else {
+            } else {
                 try {
                     if (!success.isEmpty()) {
                         JSONObject obj = new JSONObject(success);
@@ -191,7 +191,7 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
                                 tipo_pago.setText("Credito");
                                 break;
                         }
-                        if(estado == 10){
+                        if (estado == 10) {
                             tipo_pago.setText("Cancelado");
                         }
                         JSONArray array = obj.getJSONArray("detalle_costo");
@@ -208,19 +208,19 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
                         html_detalle += "<p>Total</p>";
 
                         if (get_estado(estado)) {
-                            direccion_inicio.setText(getCompleteAddressString(latinicial, lnginicial).replaceAll("\n" , ""));
-                            direccion_final.setText(getCompleteAddressString(lat_final_real, lng_final_real).replaceAll("\n" , ""));
+                            direccion_inicio.setText(getCompleteAddressString(latinicial, lnginicial).replaceAll("\n", ""));
+                            direccion_final.setText(getCompleteAddressString(lat_final_real, lng_final_real).replaceAll("\n", ""));
                             html_costo += "<p>" + costo + " Bs.</p>";
                         } else if (!get_estado(estado)) {
-                            direccion_inicio.setText(getCompleteAddressString(latinicial, lnginicial).replaceAll("\n" , ""));
-                            direccion_final.setText(getCompleteAddressString(latfinal, lngfinal).replaceAll("\n" , ""));
+                            direccion_inicio.setText(getCompleteAddressString(latinicial, lnginicial).replaceAll("\n", ""));
+                            direccion_final.setText(getCompleteAddressString(latfinal, lngfinal).replaceAll("\n", ""));
                             html_costo += "<p>0 Bs.</p>";
                         }
 
                         html_tipos.setText(Html.fromHtml(html_detalle), TextView.BufferType.SPANNABLE);
                         html_costos.setText(Html.fromHtml(html_costo), TextView.BufferType.SPANNABLE);
                     } else {
-                        Toast.makeText(Detalle_viaje_Cliente.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Detalle_viaje_Cliente.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                         Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
                     }
                 } catch (JSONException e) {
@@ -229,17 +229,20 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
             }
 
         }
+
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
 
         }
     }
-    private void verViaje(int id){
-        Intent intent = new Intent(Detalle_viaje_Cliente.this,PerfilCarrera.class);
-        intent.putExtra("id_carrera",id);
+
+    private void verViaje(int id) {
+        Intent intent = new Intent(Detalle_viaje_Cliente.this, PerfilCarrera.class);
+        intent.putExtra("id_carrera", id);
         startActivity(intent);
     }
+
     private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
         String strAdd = "";
         Geocoder geocoder = new Geocoder(Detalle_viaje_Cliente.this, Locale.getDefault());
@@ -264,7 +267,7 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
         return strAdd;
     }
 
-    private Boolean get_estado(int valor){
+    private Boolean get_estado(int valor) {
         switch (valor) {
             case 7:
                 return true;
@@ -274,23 +277,26 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
         return null;
     }
 
-    public class AsyncTaskLoadImage  extends AsyncTask<String, String, Bitmap> {
+    public class AsyncTaskLoadImage extends AsyncTask<String, String, Bitmap> {
         private final static String TAG = "AsyncTaskLoadImage";
         private ImageView imageView;
+
         public AsyncTaskLoadImage(ImageView imageView) {
             this.imageView = imageView;
         }
+
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bitmap = null;
             try {
                 URL url = new URL(params[0]);
-                bitmap = BitmapFactory.decodeStream((InputStream)url.getContent());
+                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
             }
             return bitmap;
         }
+
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             imageView.setImageBitmap(bitmap);
