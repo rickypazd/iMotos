@@ -96,7 +96,6 @@
                     android:textColor="#e52928"
                     android:visibility="gone" />
 
-
             </LinearLayout>
 
             <LinearLayout
