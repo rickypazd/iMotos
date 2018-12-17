@@ -131,14 +131,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/logestandar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary2"
-
                     android:text="iMovil" />
             </LinearLayout>
         </LinearLayout>
