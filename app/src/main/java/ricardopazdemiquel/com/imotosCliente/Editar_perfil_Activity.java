@@ -270,22 +270,16 @@ public class Editar_perfil_Activity extends AppCompatActivity implements View.On
         protected void onPostExecute(final String success) {
             super.onPostExecute(success);
             progreso.dismiss();
-            if(success == null) {
-                Toast.makeText(Editar_perfil_Activity.this,"Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
+            if (success == null) {
+                Toast.makeText(Editar_perfil_Activity.this, "Hubo un error al conectarse al servidor.", Toast.LENGTH_SHORT).show();
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
-            }else if (!success.isEmpty()){
-                try {
-                    JSONObject usr = new JSONObject(success);
-                    if(usr.getString("exito").equals("si")){
-                        finish();
-                    }else{
-                        return;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                Toast.makeText(Editar_perfil_Activity.this,"Error al obtener Datos.", Toast.LENGTH_SHORT).show();
+            } else if (success.isEmpty()) {
+
+            } else if (success.contains("exito")) {
+                finish();
+
+            } else {
+                Toast.makeText(Editar_perfil_Activity.this, "Error al obtener Datos.", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
