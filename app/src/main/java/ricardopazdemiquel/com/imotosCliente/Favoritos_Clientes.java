@@ -27,16 +27,16 @@ public class Favoritos_Clientes extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_favoritos_clientes);
+        setContentView(R.layout.activity_favoritos_clientes);
 
-        container_frame = findViewById(ricardopazdemiquel.com.imotos.R.id.container_frame);
-        btn_elegir_destino = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_elegir_destino);
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        container_frame = findViewById(R.id.container_frame);
+        btn_elegir_destino = findViewById(R.id.btn_elegir_destino);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        lv_List_favoritos = findViewById(ricardopazdemiquel.com.imotos.R.id.lv_List_favoritos);
+        lv_List_favoritos = findViewById(R.id.lv_List_favoritos);
 
         cargar();
 
@@ -99,7 +99,7 @@ public class Favoritos_Clientes extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_elegir_destino:
+            case R.id.btn_elegir_destino:
                 container_frame.setVisibility(View.GONE);
                 break;
         }

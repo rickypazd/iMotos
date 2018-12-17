@@ -130,12 +130,12 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_calcular_ruta);
+        setContentView(R.layout.activity_calcular_ruta);
 
-        Toolbar toolbar = (Toolbar) findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
         usr_log = getUsr_log();
         if (usr_log == null) {
@@ -144,14 +144,14 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
             startActivity(intent);
             finish();
         }
-        monto = findViewById(ricardopazdemiquel.com.imotos.R.id.tv_monto);
-        radio_efectivo = findViewById(ricardopazdemiquel.com.imotos.R.id.radio_efectivo);
-        radio_credito = findViewById(ricardopazdemiquel.com.imotos.R.id.radio_credito);
+        monto = findViewById(R.id.tv_monto);
+        radio_efectivo = findViewById(R.id.radio_efectivo);
+        radio_credito = findViewById(R.id.radio_credito);
         radio_efectivo.setOnClickListener(this);
         radio_credito.setOnClickListener(this);
-        btn_confirmar= findViewById(ricardopazdemiquel.com.imotos.R.id.btn_confirmar);
+        btn_confirmar= findViewById(R.id.btn_confirmar);
         btn_confirmar.setOnClickListener(this);
-        icono2 = findViewById(ricardopazdemiquel.com.imotos.R.id.icono2);
+        icono2 = findViewById(R.id.icono2);
 
         String str = getIntent().getStringExtra("JSON");
 
@@ -209,7 +209,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
         mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
                 BOUNDS_MOUNTAIN_VIEW, null);
 
-        mMapView = findViewById(ricardopazdemiquel.com.imotos.R.id.mapviewPedirSiete);
+        mMapView = findViewById(R.id.mapviewPedirSiete);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
 
@@ -235,7 +235,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 0, 30, 600);
-            locationButton.setImageResource(ricardopazdemiquel.com.imotos.R.drawable.ic_mapposition_foreground);
+            locationButton.setImageResource(R.drawable.ic_mapposition_foreground);
 
         }
         mMapView.setOnTouchListener(new View.OnTouchListener() {
@@ -292,7 +292,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_confirmar:
+            case R.id.btn_confirmar:
                 Confimar_viaje();
                 break;
         }
@@ -378,7 +378,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
 
         String str_dest = "destination="+dest.latitude+","+dest.longitude;
 
-        String key = "key="+getString(ricardopazdemiquel.com.imotos.R.string.apikey);
+        String key = "key="+getString(R.string.apikey);
 
         String parameters = str_origin+"&"+str_dest;
 
@@ -648,8 +648,8 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
         inicio=latlng1;
         fin=latlng2;
         String url = obtenerDireccionesURL(latlng1,latlng2);
-        googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
-        googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
+        googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , R.drawable.asetmar)));
+        googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(latlng1);
         builder.include(latlng2);
@@ -666,7 +666,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
     }
 
     private BitmapDescriptor Inicio_bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, ricardopazdemiquel.com.imotos.R.drawable.ic_icon_pointer_map);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_icon_pointer_map);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -678,7 +678,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
     }
 
     private BitmapDescriptor Fin_bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, ricardopazdemiquel.com.imotos.R.drawable.ic_icon_pointer_map2);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_icon_pointer_map2);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -692,10 +692,10 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
     private void mostraConfirmar_icon(int valor){
         switch (valor){
             case 1:
-                icono2.setBackground(getApplication().getResources().getDrawable(ricardopazdemiquel.com.imotos.R.drawable.ic_icon_imoto));
+                icono2.setBackground(getApplication().getResources().getDrawable(R.drawable.ic_icon_imoto));
                 break;
             case 2:
-                icono2.setBackground(getApplication().getResources().getDrawable(ricardopazdemiquel.com.imotos.R.drawable.ic_icon_imoto));
+                icono2.setBackground(getApplication().getResources().getDrawable(R.drawable.ic_icon_imoto));
                 break;
         }
     }
@@ -716,7 +716,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_costo");
             parametros.put("id",id+"");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             return respuesta;
         }
         @Override
@@ -739,7 +739,7 @@ public class Calcular_ruta_activity extends AppCompatActivity implements View.On
             parametros.put("id",id);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }

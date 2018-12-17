@@ -12,7 +12,7 @@ public class viewHolder extends RecyclerView.ViewHolder {
 
         super(v);
 
-         btn_reservar= v.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_reservar);
+         btn_reservar= v.findViewById(R.id.btn_reservar);
 
     }
 }

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 import ricardopazdemiquel.com.imotosCliente.utiles.SectionsPageAdapter;
 

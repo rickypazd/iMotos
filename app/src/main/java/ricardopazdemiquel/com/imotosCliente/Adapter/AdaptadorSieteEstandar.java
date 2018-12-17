@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ricardopazdemiquel.com.imotosCliente.PedirSieteMap;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 import ricardopazdemiquel.com.imotosCliente.viewHolder;
 
 public class AdaptadorSieteEstandar extends RecyclerView.Adapter<viewHolder> {

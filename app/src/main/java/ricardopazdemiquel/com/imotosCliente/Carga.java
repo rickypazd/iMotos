@@ -41,7 +41,7 @@ public class Carga extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_carga);
+        setContentView(R.layout.activity_carga);
 
         Token.currentToken = FirebaseInstanceId.getInstance().getToken();
 
@@ -165,7 +165,7 @@ public class Carga extends AppCompatActivity {
             parametros.put("evento", "validar_token");
             parametros.put("id_usr", id + "");
             parametros.put("token", token + "");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
 
@@ -222,7 +222,7 @@ public class Carga extends AppCompatActivity {
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_carrera_cliente");
             parametros.put("id_usr", id + "");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
 

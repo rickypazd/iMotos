@@ -126,25 +126,25 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_pedir_siete_togo);
+        setContentView(R.layout.activity_pedir_siete_togo);
 
-        Toolbar toolbar = (Toolbar) findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
         setTitle("Siete TO GO");
         toolbar.setTitleTextColor(Color.WHITE);
 
-        lista_productos=findViewById(ricardopazdemiquel.com.imotos.R.id.lista_productos);
-        tv_cantidad=findViewById(ricardopazdemiquel.com.imotos.R.id.tv_cantidad);
-        linearLayoutTogo = findViewById(ricardopazdemiquel.com.imotos.R.id.linearLayoutTogo);
-        layoutButon=findViewById(ricardopazdemiquel.com.imotos.R.id.ll_boton);
-        iv_marker=findViewById(ricardopazdemiquel.com.imotos.R.id.ivmarker);
-        monto = findViewById(ricardopazdemiquel.com.imotos.R.id.tv_monto);
-        text_direccion_togo = findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_togo);
-        btn_agregar_producto = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_agregar_producto);
+        lista_productos=findViewById(R.id.lista_productos);
+        tv_cantidad=findViewById(R.id.tv_cantidad);
+        linearLayoutTogo = findViewById(R.id.linearLayoutTogo);
+        layoutButon=findViewById(R.id.ll_boton);
+        iv_marker=findViewById(R.id.ivmarker);
+        monto = findViewById(R.id.tv_monto);
+        text_direccion_togo = findViewById(R.id.text_direccion_togo);
+        btn_agregar_producto = findViewById(R.id.btn_agregar_producto);
         btn_agregar_producto.setOnClickListener(this);
-        View view =findViewById(ricardopazdemiquel.com.imotos.R.id.bottom_sheet);
+        View view =findViewById(R.id.bottom_sheet);
         bottomSheetBehavior= BottomSheetBehavior.from(view);
         bottomSheetBehavior.setHideable(false);
         /*bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -193,20 +193,20 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
                 .addConnectionCallbacks(this)
                 .build();
 
-        btn_pedir_togo = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_pedir_togo);
-        radio_efectivo = findViewById(ricardopazdemiquel.com.imotos.R.id.radio_efectivo);
-        radio_credito = findViewById(ricardopazdemiquel.com.imotos.R.id.radio_credito);
+        btn_pedir_togo = findViewById(R.id.btn_pedir_togo);
+        radio_efectivo = findViewById(R.id.radio_efectivo);
+        radio_credito = findViewById(R.id.radio_credito);
         radio_efectivo.setOnClickListener(this);
         radio_credito.setOnClickListener(this);
 
-        icono2 = findViewById(ricardopazdemiquel.com.imotos.R.id.icono2);
+        icono2 = findViewById(R.id.icono2);
         btn_pedir_togo.setOnClickListener(this);
 
-        linear_confirm=findViewById(ricardopazdemiquel.com.imotos.R.id.linear_confirm);
+        linear_confirm=findViewById(R.id.linear_confirm);
 
         mostar_button(tipo_carrera);
 
-        text_direccion_togo = findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_togo);
+        text_direccion_togo = findViewById(R.id.text_direccion_togo);
         text_direccion_togo.setOnFocusChangeListener(this);
         text_direccion_togo.setThreshold(3);
         text_direccion_togo.setOnItemClickListener(mAutocompleteClickListener);
@@ -230,10 +230,10 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
             tv_cantidad.setText("Productos ("+arr.length()+")");
         }
 
-        btn_confirmar= findViewById(ricardopazdemiquel.com.imotos.R.id.btn_confirmar);
+        btn_confirmar= findViewById(R.id.btn_confirmar);
         btn_confirmar.setOnClickListener(this);
 
-        mMapView = findViewById(ricardopazdemiquel.com.imotos.R.id.mapviewPedirSiete);
+        mMapView = findViewById(R.id.mapviewPedirSiete);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
 
@@ -291,7 +291,7 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
             //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 290, 10, 0);
 
-            locationButton.setImageResource(ricardopazdemiquel.com.imotos.R.drawable.ic_mapposition_foreground);
+            locationButton.setImageResource(R.drawable.ic_mapposition_foreground);
         }
         mMapView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -348,17 +348,17 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_pedir_togo:
+            case R.id.btn_pedir_togo:
                 //calculando_ruta(view , tipo_carrera);
                 mostraConfirmar(tipo_carrera);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_agregar_producto:
+            case R.id.btn_agregar_producto:
                 //Intent intent =  new Intent(PedirSieteTogo.this, Producto_togo_Activity.class);
                 //startActivity(intent);
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 new Producto_togo_Dialog(new JSONObject() , 0 , 2).show(fragmentManager, "Dialog");
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_confirmar:
+            case R.id.btn_confirmar:
                 Confimar_viaje();
                 break;
         }
@@ -487,7 +487,7 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
 
         String str_dest = "destination="+dest.latitude+","+dest.longitude;
 
-        String key = "key="+getString(ricardopazdemiquel.com.imotos.R.string.apikey);
+        String key = "key="+getString(R.string.apikey);
 
         String parameters = str_origin+"&"+str_dest;
 
@@ -815,7 +815,7 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_costo");
             parametros.put("id",id+"");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             return respuesta;
         }
         @Override
@@ -839,7 +839,7 @@ public class PedirSieteTogo extends AppCompatActivity implements View.OnClickLis
             parametros.put("id",id);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }

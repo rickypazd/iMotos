@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import ricardopazdemiquel.com.imotosCliente.Adapter.Adapter_historial;
 import ricardopazdemiquel.com.imotosCliente.PedirSieteMap;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

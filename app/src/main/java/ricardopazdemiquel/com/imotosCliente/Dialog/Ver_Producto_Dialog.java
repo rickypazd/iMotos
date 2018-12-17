@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 /**
  * Created by Edson on 02/12/2017.

@@ -25,13 +25,13 @@ public class FinalizarViajeFragment_2 extends Fragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(ricardopazdemiquel.com.imotos.R.layout.fragment_finalizar_viaje_fragment_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_finalizar_viaje_fragment_2, container, false);
 
-        edit_mensaje = view.findViewById(ricardopazdemiquel.com.imotos.R.id.edit_mensaje);
+        edit_mensaje = view.findViewById(R.id.edit_mensaje);
         /*btn_amable = view.findViewById(R.id.btn_amable);
         btn_buena_ruta = view.findViewById(R.id.btn_buena_ruta);
         btn_auto_limpio = view.findViewById(R.id.btn_auto_limpio);*/
-        btn_enviar_mensaje = view.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_enviar_mensaje);
+        btn_enviar_mensaje = view.findViewById(R.id.btn_enviar_mensaje);
 
         btn_enviar_mensaje.setOnClickListener(this);
         /*btn_amable.setOnClickListener(this);
@@ -44,7 +44,7 @@ public class FinalizarViajeFragment_2 extends Fragment implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_enviar_mensaje:
+            case R.id.btn_enviar_mensaje:
                 String mensaje = edit_mensaje.getText().toString().trim();
                 //((finalizar_viajeCliente)getActivity()).finalizo(mensaje , false , false, false);
                 break;

@@ -28,15 +28,15 @@ public class Elejir_tipo_siete extends Fragment implements View.OnClickListener 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(ricardopazdemiquel.com.imotos.R.layout.activity_elejir_tipo_siete, container, false);
+        View view = inflater.inflate(R.layout.activity_elejir_tipo_siete, container, false);
 
         longitudeGPS = getActivity().getIntent().getDoubleExtra("lng",0);
         latitudeGPS = getActivity().getIntent().getDoubleExtra("lat",0);
 
-        siete = view.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_siete);
-        siete_maravilla = view.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_sieteMaravilla);
-        siete_super = view.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_superSiete);
-        siete_togo = view.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_togo);
+        siete = view.findViewById(R.id.btn_siete);
+        siete_maravilla = view.findViewById(R.id.btn_sieteMaravilla);
+        siete_super = view.findViewById(R.id.btn_superSiete);
+        siete_togo = view.findViewById(R.id.btn_togo);
 
         siete.setOnClickListener(this);
         siete_maravilla.setOnClickListener(this);
@@ -68,14 +68,14 @@ public class Elejir_tipo_siete extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_siete:
+            case R.id.btn_siete:
                     Intent intent = new Intent(getActivity(), PedirSieteMap.class);
                     intent.putExtra("lng", longitudeGPS);
                     intent.putExtra("lat", latitudeGPS);
                     intent.putExtra("tipo", 1);
                     startActivity(intent);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_superSiete:
+            case R.id.btn_superSiete:
                 Intent intent1 = new Intent(getActivity(), PedirSieteMap.class);
                     intent1.putExtra("lng", longitudeGPS);
                     intent1.putExtra("lat", latitudeGPS);
@@ -83,7 +83,7 @@ public class Elejir_tipo_siete extends Fragment implements View.OnClickListener 
                     startActivity(intent1);
 
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_sieteMaravilla:
+            case R.id.btn_sieteMaravilla:
                 JSONObject obj = getUsr_log();
                 try {
                     if(obj.getString("sexo").equals("Mujer")){
@@ -99,7 +99,7 @@ public class Elejir_tipo_siete extends Fragment implements View.OnClickListener 
                     e.printStackTrace();
                 }
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_togo:
+            case R.id.btn_togo:
                 Intent intent_togo = new Intent(getActivity(), PedirSieteTogo.class);
                     intent_togo.putExtra("lng", longitudeGPS);
                     intent_togo.putExtra("lat", latitudeGPS);

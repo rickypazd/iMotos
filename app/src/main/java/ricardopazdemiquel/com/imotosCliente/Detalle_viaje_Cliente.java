@@ -58,25 +58,25 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_detalle_viaje_cliente);
+        setContentView(R.layout.activity_detalle_viaje_cliente);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar_detalle_viaje);
+        Toolbar toolbar = findViewById(R.id.toolbar_detalle_viaje);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
-        btn_ver_recorrido = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_ver_recorrido);
-        nombre = findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombre);
-        placa = findViewById(ricardopazdemiquel.com.imotos.R.id.text_placa);
-        telefono = findViewById(ricardopazdemiquel.com.imotos.R.id.text_telefono);
-        fotoConductor = findViewById(ricardopazdemiquel.com.imotos.R.id.img_perfil_conductor);
-        direccion_inicio = findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_inicio);
-        direccion_final = findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_fin);
-        fecha = findViewById(ricardopazdemiquel.com.imotos.R.id.text_fecha);
-        marca_auto = findViewById(ricardopazdemiquel.com.imotos.R.id.text_auto_marca);
-        tipo_pago = findViewById(ricardopazdemiquel.com.imotos.R.id.text_tipo_pago);
-        html_tipos = findViewById(ricardopazdemiquel.com.imotos.R.id.text_html_tipos);
-        html_costos = findViewById(ricardopazdemiquel.com.imotos.R.id.text_html_montos);
-        text_tipo_carrera = findViewById(ricardopazdemiquel.com.imotos.R.id.text_tipo_carrera);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
+        btn_ver_recorrido = findViewById(R.id.btn_ver_recorrido);
+        nombre = findViewById(R.id.text_nombre);
+        placa = findViewById(R.id.text_placa);
+        telefono = findViewById(R.id.text_telefono);
+        fotoConductor = findViewById(R.id.img_perfil_conductor);
+        direccion_inicio = findViewById(R.id.text_direccion_inicio);
+        direccion_final = findViewById(R.id.text_direccion_fin);
+        fecha = findViewById(R.id.text_fecha);
+        marca_auto = findViewById(R.id.text_auto_marca);
+        tipo_pago = findViewById(R.id.text_tipo_pago);
+        html_tipos = findViewById(R.id.text_html_tipos);
+        html_costos = findViewById(R.id.text_html_montos);
+        text_tipo_carrera = findViewById(R.id.text_tipo_carrera);
 
         Intent intent = getIntent();
         if(intent != null){
@@ -129,7 +129,7 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
             parametros.put("id",id);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }
@@ -181,7 +181,7 @@ public class Detalle_viaje_Cliente extends AppCompatActivity {
                                 break;
                         }
                         if (obj.getString("foto_perfil").length() > 0) {
-                            new AsyncTaskLoadImage(fotoConductor).execute(getString(ricardopazdemiquel.com.imotos.R.string.url_foto) + obj.getString("foto_perfil"));
+                            new AsyncTaskLoadImage(fotoConductor).execute(getString(R.string.url_foto) + obj.getString("foto_perfil"));
                         }
                         switch (tipo) {
                             case (EFECTIVO):

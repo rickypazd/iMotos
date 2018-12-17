@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 public class Adapter_producto_togo extends BaseAdapter {
 

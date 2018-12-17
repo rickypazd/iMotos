@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ricardopazdemiquel.com.imotosCliente.Calcular_ruta_activity;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

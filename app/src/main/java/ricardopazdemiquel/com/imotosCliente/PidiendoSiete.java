@@ -35,7 +35,7 @@ public class PidiendoSiete extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_pidiendo_siete);
+        setContentView(R.layout.activity_pidiendo_siete);
 
         Intent intent= getIntent();
 
@@ -88,7 +88,7 @@ public class PidiendoSiete extends AppCompatActivity {
             parametros.put("evento", "actualizar_token");
             parametros.put("id_usr",id);
             parametros.put("token", Token.currentToken);
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             return respuesta;
         }
         @Override
@@ -127,7 +127,7 @@ public class PidiendoSiete extends AppCompatActivity {
             param.put("tipo",tipoCarrera);
             param.put("tipo_pago",tipo_pago);
 
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 
@@ -181,7 +181,7 @@ public class PidiendoSiete extends AppCompatActivity {
             param.put("tipo",tipoCarrera);
             param.put("tipo_pago",tipo_pago);
             param.put("productos_str" , mensaje);
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 

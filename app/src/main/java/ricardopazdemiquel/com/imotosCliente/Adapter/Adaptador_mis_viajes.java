@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ricardopazdemiquel.com.imotosCliente.Detalle_viaje_Cliente;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

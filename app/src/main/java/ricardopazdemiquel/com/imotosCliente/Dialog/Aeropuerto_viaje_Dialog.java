@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 /**
  * Created by Edson on 02/12/2017.

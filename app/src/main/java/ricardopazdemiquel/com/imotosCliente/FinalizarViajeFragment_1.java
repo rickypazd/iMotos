@@ -28,12 +28,12 @@ public class FinalizarViajeFragment_1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(ricardopazdemiquel.com.imotos.R.layout.fragment_finalizar_viaje_fragment_1, container, false);
+        View view = inflater.inflate(R.layout.fragment_finalizar_viaje_fragment_1, container, false);
 
-        textNombre = view.findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombre);
-        textplaca = view.findViewById(ricardopazdemiquel.com.imotos.R.id.text_placa);
-        textInicio = view.findViewById(ricardopazdemiquel.com.imotos.R.id.text_inicio);
-        textFin = view.findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_final);
+        textNombre = view.findViewById(R.id.text_nombre);
+        textplaca = view.findViewById(R.id.text_placa);
+        textInicio = view.findViewById(R.id.text_inicio);
+        textFin = view.findViewById(R.id.text_direccion_final);
 
         carrera=((finalizar_viajeCliente)getActivity()).get_carrera();
         cargar();

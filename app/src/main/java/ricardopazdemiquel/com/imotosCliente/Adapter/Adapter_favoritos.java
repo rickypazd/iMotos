@@ -20,7 +20,7 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Locale;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 public class Adapter_favoritos extends BaseAdapter {
 

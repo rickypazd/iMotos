@@ -40,18 +40,18 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_preferencias);
+        setContentView(R.layout.activity_preferencias);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        liner_ver_perfil = findViewById(ricardopazdemiquel.com.imotos.R.id.liner_ver_perfil);
-        liner_sign_out = findViewById(ricardopazdemiquel.com.imotos.R.id.liner_sign_out);
-        text_nombre = findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombre);
-        text_apellidos = findViewById(ricardopazdemiquel.com.imotos.R.id.text_apellidos);
-        img_photo = findViewById(ricardopazdemiquel.com.imotos.R.id.img_photo);
+        liner_ver_perfil = findViewById(R.id.liner_ver_perfil);
+        liner_sign_out = findViewById(R.id.liner_sign_out);
+        text_nombre = findViewById(R.id.text_nombre);
+        text_apellidos = findViewById(R.id.text_apellidos);
+        img_photo = findViewById(R.id.img_photo);
         liner_sign_out.setOnClickListener(this);
         liner_ver_perfil.setOnClickListener(this);
 
@@ -64,7 +64,7 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
                 text_nombre.setText(nombre);
                 text_apellidos.setText(apellido_pa + " " + apellido_ma);
                 if (usr_log.getString("foto_perfil").length() > 0) {
-                    new AsyncTaskLoadImage(img_photo).execute(getString(ricardopazdemiquel.com.imotos.R.string.url_foto) + usr_log.getString("foto_perfil"));
+                    new AsyncTaskLoadImage(img_photo).execute(getString(R.string.url_foto) + usr_log.getString("foto_perfil"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -110,7 +110,7 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.liner_sign_out:
+            case R.id.liner_sign_out:
                 JSONObject usr = getUsr_log();
                 SharedPreferences preferencias = getSharedPreferences("myPref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferencias.edit();
@@ -126,7 +126,7 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
 
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.liner_ver_perfil:
+            case R.id.liner_ver_perfil:
                 Intent intent2 = new Intent(Preferencias.this, Perfil_ClienteFragment.class);
                 startActivity(intent2);
                 finish();
@@ -181,7 +181,7 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
             param.put("evento", "desconectarse");
             param.put("id", id + "");
             param.put("token", nombre);
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 

@@ -61,11 +61,11 @@ public class LoginCliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_login_cliente);
+        setContentView(R.layout.activity_login_cliente);
         // Set up the login form.
-        mEmailView = findViewById(ricardopazdemiquel.com.imotos.R.id.email);
+        mEmailView = findViewById(R.id.email);
 
-        mPasswordView = (EditText) findViewById(ricardopazdemiquel.com.imotos.R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -77,7 +77,7 @@ public class LoginCliente extends AppCompatActivity {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(ricardopazdemiquel.com.imotos.R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,8 +85,8 @@ public class LoginCliente extends AppCompatActivity {
             }
         });
 
-        mLoginFormView = findViewById(ricardopazdemiquel.com.imotos.R.id.login_form);
-        mProgressView = findViewById(ricardopazdemiquel.com.imotos.R.id.login_progress);
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
     }
     
     /**
@@ -112,14 +112,14 @@ public class LoginCliente extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(ricardopazdemiquel.com.imotos.R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(usuario)) {
-            mEmailView.setError(getString(ricardopazdemiquel.com.imotos.R.string.error_field_required));
+            mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
             cancel = true;
         }
@@ -222,7 +222,7 @@ public class LoginCliente extends AppCompatActivity {
             parametros.put("token", Token.currentToken);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }
@@ -265,7 +265,7 @@ public class LoginCliente extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }else{
-                            mPasswordView.setError(getString(ricardopazdemiquel.com.imotos.R.string.error_incorrect_password));
+                            mPasswordView.setError(getString(R.string.error_incorrect_password));
                             mPasswordView.requestFocus();
                         }
                     } catch (JSONException e) {

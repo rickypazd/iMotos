@@ -37,7 +37,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_finalizar_viajecliente);
+        setContentView(R.layout.activity_finalizar_viajecliente);
 
         String res = getIntent().getStringExtra("carrera");
         //id_carrera = Integer.parseInt(getIntent().getStringExtra("id_carrera"));
@@ -46,13 +46,13 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        btn_enviar_mensaje = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_enviar_mensaje);
+        btn_enviar_mensaje = findViewById(R.id.btn_enviar_mensaje);
         btn_enviar_mensaje.setOnClickListener(this);
 
-        ratingBar = findViewById(ricardopazdemiquel.com.imotos.R.id.ratingBar);
+        ratingBar = findViewById(R.id.ratingBar);
         fragment_1 = new FinalizarViajeFragment_1();
         //fragment_2= new FinalizarViajeFragment_2();
-        getSupportFragmentManager().beginTransaction().add(ricardopazdemiquel.com.imotos.R.id.contenedorFragment, fragment_1).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment, fragment_1).commit();
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -72,7 +72,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_enviar_mensaje:
+            case R.id.btn_enviar_mensaje:
                 try {
                     new Finalizo(carrera.getInt("id"), ratings, "", false, false, false);
                 } catch (JSONException e) {
@@ -123,7 +123,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
             parametros.put("auto_limpio", auto_limpio + "");
             parametros.put("buena_ruta", buena_ruta + "");
             parametros.put("mensaje", mensaje + "");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
 

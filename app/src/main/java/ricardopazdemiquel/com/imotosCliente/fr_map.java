@@ -53,8 +53,8 @@ public class fr_map extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(ricardopazdemiquel.com.imotos.R.layout.fragment_fr_map, container, false);
-        mMapView = view.findViewById(ricardopazdemiquel.com.imotos.R.id.mapView);
+        final View view = inflater.inflate(R.layout.fragment_fr_map, container, false);
+        mMapView = view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
 
@@ -95,7 +95,7 @@ public class fr_map extends Fragment implements View.OnClickListener{
         toggleGPSUpdates();
 
 
-        Pide_tu_siete = view.findViewById(ricardopazdemiquel.com.imotos.R.id.Pide_tu_siete);
+        Pide_tu_siete = view.findViewById(R.id.Pide_tu_siete);
         Pide_tu_siete.setOnClickListener(this);
 
         if (mMapView != null && mMapView.findViewById(Integer.parseInt("1")) != null) {
@@ -105,7 +105,7 @@ public class fr_map extends Fragment implements View.OnClickListener{
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 0, 30, 600);
-            locationButton.setImageResource(ricardopazdemiquel.com.imotos.R.drawable.ic_mapposition_foreground);
+            locationButton.setImageResource(R.drawable.ic_mapposition_foreground);
 
         }
         return view;
@@ -197,7 +197,7 @@ public class fr_map extends Fragment implements View.OnClickListener{
             if(longitudeGPS!=0){
         }
         startActivity(intent);
-        getActivity().overridePendingTransition(ricardopazdemiquel.com.imotos.R.anim.zoom_back_in, ricardopazdemiquel.com.imotos.R.anim.fade_out);
+        getActivity().overridePendingTransition(R.anim.zoom_back_in, R.anim.fade_out);
       }
     }
 }

@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 import ricardopazdemiquel.com.imotosCliente.Dialog.Producto_togo_Dialog;
 import ricardopazdemiquel.com.imotosCliente.PedirSieteTogo;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 public class Adapter_pedidos_togo extends BaseAdapter {
 

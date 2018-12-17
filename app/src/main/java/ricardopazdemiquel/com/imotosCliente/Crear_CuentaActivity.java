@@ -40,19 +40,19 @@ public class Crear_CuentaActivity extends AppCompatActivity implements View.OnCl
     private JSONObject obj_us;
     protected void onCreate(Bundle onSaveInstanceState){
         super.onCreate(onSaveInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_crear_cuenta);
+        setContentView(R.layout.activity_crear_cuenta);
 
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Toolbar toolbar = (Toolbar) findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        edit_fecha = findViewById(ricardopazdemiquel.com.imotos.R.id.edit_fecha);
-        edit_username= findViewById(ricardopazdemiquel.com.imotos.R.id.edit_username);
-        edit_pass = findViewById(ricardopazdemiquel.com.imotos.R.id.edit_pass);
-        edit_correo = findViewById(ricardopazdemiquel.com.imotos.R.id.edit_correo);
-        btn_crear_usuario = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_crear_usuario);
+        edit_fecha = findViewById(R.id.edit_fecha);
+        edit_username= findViewById(R.id.edit_username);
+        edit_pass = findViewById(R.id.edit_pass);
+        edit_correo = findViewById(R.id.edit_correo);
+        btn_crear_usuario = findViewById(R.id.btn_crear_usuario);
 
         btn_crear_usuario.setOnClickListener(this);
         edit_fecha.setOnClickListener(this);
@@ -117,12 +117,12 @@ public class Crear_CuentaActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_crear_usuario:
+            case R.id.btn_crear_usuario:
                 Guardar();
                 break;
         }
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.edit_fecha:
+            case R.id.edit_fecha:
                 ShowDatapinckerDialog();
                 break;
         }
@@ -264,7 +264,7 @@ public class Crear_CuentaActivity extends AppCompatActivity implements View.OnCl
                     param.put("sexo",obj_us.getString("sexo"));
                     param.put("correo",correo);
                     param.put("telefono",obj_us.getString("telefono"));
-                    String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, param));
+                    String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, param));
                     return respuesta;
                 } catch (JSONException e) {
                     e.printStackTrace();

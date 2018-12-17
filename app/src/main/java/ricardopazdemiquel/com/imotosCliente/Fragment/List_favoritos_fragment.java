@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import ricardopazdemiquel.com.imotosCliente.Adapter.Adapter_favoritos;
 import ricardopazdemiquel.com.imotosCliente.PedirSieteMap;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 import ricardopazdemiquel.com.imotosCliente.favoritos_pruba;
 
 import org.json.JSONArray;

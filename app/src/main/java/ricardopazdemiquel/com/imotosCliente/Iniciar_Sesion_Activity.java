@@ -14,10 +14,10 @@ public class Iniciar_Sesion_Activity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_iniciar_sesion);
+        setContentView(R.layout.activity_iniciar_sesion);
 
-        btn_crear_cuenta = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_crear_cuenta);
-        btn_iniciar_sesion = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_iniciar_sesion);
+        btn_crear_cuenta = findViewById(R.id.btn_crear_cuenta);
+        btn_iniciar_sesion = findViewById(R.id.btn_iniciar_sesion);
 
         btn_iniciar_sesion.setOnClickListener(this);
         btn_crear_cuenta.setOnClickListener(this);
@@ -28,12 +28,12 @@ public class Iniciar_Sesion_Activity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()){
-            case ricardopazdemiquel.com.imotos.R.id.btn_iniciar_sesion:
+            case R.id.btn_iniciar_sesion:
                 intent = new Intent(Iniciar_Sesion_Activity.this, LoginCliente.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_crear_cuenta:
+            case R.id.btn_crear_cuenta:
                 intent = new Intent(Iniciar_Sesion_Activity.this, IniciarCuentaActivity.class);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

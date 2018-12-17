@@ -38,20 +38,20 @@ public class IniciarCuentaActivity extends AppCompatActivity implements View.OnC
 
     protected void onCreate(Bundle onSaveInstanceState){
         super.onCreate(onSaveInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_solicitud);
+        setContentView(R.layout.activity_solicitud);
 
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Toolbar toolbar = (Toolbar) findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        edit_nombre = findViewById(ricardopazdemiquel.com.imotos.R.id.edit_nombre);
-        edit_apellidoP= findViewById(ricardopazdemiquel.com.imotos.R.id.edit_apellidoP);
-        edit_apellidoM = findViewById(ricardopazdemiquel.com.imotos.R.id.edit_apellidoM);
-        edit_telefono = findViewById(ricardopazdemiquel.com.imotos.R.id.edit_telefono);
-        radio_hombre = findViewById(ricardopazdemiquel.com.imotos.R.id.radioHombre);
-        radio_mujer = findViewById(ricardopazdemiquel.com.imotos.R.id.radioMujer);
-        btn_siguiente = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_siguiente);
+        edit_nombre = findViewById(R.id.edit_nombre);
+        edit_apellidoP= findViewById(R.id.edit_apellidoP);
+        edit_apellidoM = findViewById(R.id.edit_apellidoM);
+        edit_telefono = findViewById(R.id.edit_telefono);
+        radio_hombre = findViewById(R.id.radioHombre);
+        radio_mujer = findViewById(R.id.radioMujer);
+        btn_siguiente = findViewById(R.id.btn_siguiente);
 
         btn_siguiente.setOnClickListener(this);
 
@@ -124,7 +124,7 @@ public class IniciarCuentaActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_siguiente:
+            case R.id.btn_siguiente:
                 Guardar();
                 break;
         }

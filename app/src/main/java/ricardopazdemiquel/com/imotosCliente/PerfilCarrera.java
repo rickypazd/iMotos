@@ -45,7 +45,7 @@ public class PerfilCarrera extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_perfil_carrera);
+        setContentView(R.layout.activity_perfil_carrera);
         id_carrera=getIntent().getIntExtra("id_carrera",0);
         if(id_carrera>0){
             try {
@@ -56,7 +56,7 @@ public class PerfilCarrera extends AppCompatActivity {
                 }else{
                     try {
                         carrera = new JSONObject(resp);
-                        mMapView=findViewById(ricardopazdemiquel.com.imotos.R.id.mapviewdetalle);
+                        mMapView=findViewById(R.id.mapviewdetalle);
                         mMapView.onCreate(savedInstanceState);
                         mMapView.onResume();
                         MapsInitializer.initialize(this.getApplicationContext());
@@ -79,7 +79,7 @@ public class PerfilCarrera extends AppCompatActivity {
                                         Location location1;
                                         Location location2;
                                         double dist=0;
-                                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(ricardopazdemiquel.com.imotos.R.drawable.ic_action_name);
+                                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.ic_action_name);
                                         Bitmap b=bitmapdraw.getBitmap();
                                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, 10, 10, false);
                                         for (int i = 0; i <arr.length()-1 ; i++) {
@@ -162,7 +162,7 @@ public class PerfilCarrera extends AppCompatActivity {
             Hashtable<String,String> param = new Hashtable<>();
             param.put("evento","get_carrera_id_recorrido");
             param.put("id",id_carrera+"");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 

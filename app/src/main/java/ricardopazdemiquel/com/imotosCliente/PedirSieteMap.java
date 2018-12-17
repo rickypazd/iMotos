@@ -147,8 +147,8 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private int logo_array[] = {
-            ricardopazdemiquel.com.imotos.R.drawable.btnmoto,
-            ricardopazdemiquel.com.imotos.R.drawable.btndelivery
+            R.drawable.btnmoto,
+            R.drawable.btndelivery
     };
 
     private int tipo_carrera;
@@ -173,25 +173,25 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_pedir_siete_map);
+        setContentView(R.layout.activity_pedir_siete_map);
         //Navigation Bar
-        DrawerLayout drawer = (DrawerLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, null, ricardopazdemiquel.com.imotos.R.string.navigation_drawer_open, ricardopazdemiquel.com.imotos.R.string.navigation_drawer_close);
+                this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(ricardopazdemiquel.com.imotos.R.id.nav_view);
-        View header = navigationView.inflateHeaderView(ricardopazdemiquel.com.imotos.R.layout.nav_header_main);
-        btn_nav_formaspago=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_formaspago);
-        btn_nav_miperfil=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_miperfil);
-        btn_nav_misviajes=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_misviajes);
-        btn_nav_preferencias=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_preferencias);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        btn_nav_formaspago=header.findViewById(R.id.btn_nav_formaspago);
+        btn_nav_miperfil=header.findViewById(R.id.btn_nav_miperfil);
+        btn_nav_misviajes=header.findViewById(R.id.btn_nav_misviajes);
+        btn_nav_preferencias=header.findViewById(R.id.btn_nav_preferencias);
         btn_nav_formaspago.setOnClickListener(this);
         btn_nav_miperfil.setOnClickListener(this);
         btn_nav_misviajes.setOnClickListener(this);
         btn_nav_preferencias.setOnClickListener(this);
-        barnombre=header.findViewById(ricardopazdemiquel.com.imotos.R.id.barnombre);
-        bartelefono=header.findViewById(ricardopazdemiquel.com.imotos.R.id.bartelefono);
+        barnombre=header.findViewById(R.id.barnombre);
+        bartelefono=header.findViewById(R.id.bartelefono);
         JSONObject usr = getUsr_log();
         runtime_permissions();
         try {
@@ -200,11 +200,11 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ImageView fab = findViewById(ricardopazdemiquel.com.imotos.R.id.fab);
+        ImageView fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DrawerLayout drawer = (DrawerLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.drawer_layout);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);
                 } else{
@@ -212,14 +212,14 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-        ll_ubic = findViewById(ricardopazdemiquel.com.imotos.R.id.linearLayoutPedir);
+        ll_ubic = findViewById(R.id.linearLayoutPedir);
         //
-        toolbar = (Toolbar) findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar2);
+        toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
         toolbar.setContentInsetsAbsolute(24,24);
-        linearLayoutPedir = findViewById(ricardopazdemiquel.com.imotos.R.id.linearLayoutPedir);
+        linearLayoutPedir = findViewById(R.id.linearLayoutPedir);
 
-        iv_marker = findViewById(ricardopazdemiquel.com.imotos.R.id.ivmarker);
+        iv_marker = findViewById(R.id.ivmarker);
 
         //iv_marker.drawableHotspotChanged(0.2f,23.2f);
         //iv_marker.setBackground(getDrawable(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
@@ -234,33 +234,33 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 .addConnectionCallbacks(this)
                 .build();
 
-        viewPager = (ViewPager) findViewById(ricardopazdemiquel.com.imotos.R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
         // adding bottom dots
         bottomProgressDots(0);
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
-        viewPager.setPageMargin(getResources().getDimensionPixelOffset(ricardopazdemiquel.com.imotos.R.dimen.viewpager_margin_overlap_payment));
+        viewPager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.viewpager_margin_overlap_payment));
         viewPager.setOffscreenPageLimit(MAX_STEP);
-        recyclerView = findViewById(ricardopazdemiquel.com.imotos.R.id.reciclerView);
+        recyclerView = findViewById(R.id.reciclerView);
         parent_view = findViewById(android.R.id.content);
 
-        next_historial = findViewById(ricardopazdemiquel.com.imotos.R.id.next_historial);
+        next_historial = findViewById(R.id.next_historial);
         next_historial.setOnClickListener(this);
 
         mostar_button(tipo_carrera);
 
-        View view = findViewById(ricardopazdemiquel.com.imotos.R.id.button_sheetss);
+        View view = findViewById(R.id.button_sheetss);
         bottomSheetBehavior = BottomSheetBehavior.from(view);
         //bottomSheetBehavior.setHideable(false);
         //bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
 
         SetupViewPager_fragment = new SetupViewPager_fragment();
         List_historial_fragment pagguer=new List_historial_fragment();
-        getSupportFragmentManager().beginTransaction().add(ricardopazdemiquel.com.imotos.R.id.contenedorFragment, pagguer).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment, pagguer).commit();
 
 
-        mAutocompleteTextView = (AutoCompleteTextView) findViewById(ricardopazdemiquel.com.imotos.R.id.autoCompleteTextView);
+        mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mAutocompleteTextView.setOnFocusChangeListener(this);
         mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,7 +278,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 BOUNDS_MOUNTAIN_VIEW, auto);
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
 
-        mAutocompleteTextView2 = (AutoCompleteTextView) findViewById(ricardopazdemiquel.com.imotos.R.id
+        mAutocompleteTextView2 = (AutoCompleteTextView) findViewById(R.id
                 .autoCompleteTextView2);
         mAutocompleteTextView2.setOnFocusChangeListener(this);
         mAutocompleteTextView2.setThreshold(3);
@@ -305,10 +305,10 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
         active=false;
 
-        mMapView = findViewById(ricardopazdemiquel.com.imotos.R.id.mapviewPedirSiete);
+        mMapView = findViewById(R.id.mapviewPedirSiete);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-        btn_ver_listo=findViewById(ricardopazdemiquel.com.imotos.R.id.verlisto);
+        btn_ver_listo=findViewById(R.id.verlisto);
         MapsInitializer.initialize(this.getApplicationContext());
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -391,7 +391,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             //layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 400, 10, 0);
 
-            locationButton.setImageResource(ricardopazdemiquel.com.imotos.R.drawable.ic_mapposition_foreground);
+            locationButton.setImageResource(R.drawable.ic_mapposition_foreground);
         }
 
 
@@ -418,7 +418,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     };
 
     private void bottomProgressDots(int current_index) {
-        LinearLayout dotsLayout = (LinearLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.layoutDots);
+        LinearLayout dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         ImageView[] dots = new ImageView[MAX_STEP];
 
         dotsLayout.removeAllViews();
@@ -428,14 +428,14 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(width_height, width_height));
             params.setMargins(10, 10, 10, 10);
             dots[i].setLayoutParams(params);
-            dots[i].setImageResource(ricardopazdemiquel.com.imotos.R.drawable.shape_circle);
-            dots[i].setColorFilter(getResources().getColor(ricardopazdemiquel.com.imotos.R.color.grey_20), PorterDuff.Mode.SRC_IN);
+            dots[i].setImageResource(R.drawable.shape_circle);
+            dots[i].setColorFilter(getResources().getColor(R.color.grey_20), PorterDuff.Mode.SRC_IN);
             dotsLayout.addView(dots[i]);
         }
 
         if (dots.length > 0) {
-            dots[current_index].setImageResource(ricardopazdemiquel.com.imotos.R.drawable.shape_circle);
-            dots[current_index].setColorFilter(getResources().getColor(ricardopazdemiquel.com.imotos.R.color.colorPrimaryDark2), PorterDuff.Mode.SRC_IN);
+            dots[current_index].setImageResource(R.drawable.shape_circle);
+            dots[current_index].setColorFilter(getResources().getColor(R.color.colorPrimaryDark2), PorterDuff.Mode.SRC_IN);
         }
     }
 
@@ -449,8 +449,8 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         public Object instantiateItem(ViewGroup container, final int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View view = layoutInflater.inflate(ricardopazdemiquel.com.imotos.R.layout.item_card_payment, container, false);
-             ImageView ima = ((ImageView) view.findViewById(ricardopazdemiquel.com.imotos.R.id.card_logo));
+            View view = layoutInflater.inflate(R.layout.item_card_payment, container, false);
+             ImageView ima = ((ImageView) view.findViewById(R.id.card_logo));
             ima.setImageResource(logo_array[position]);
             ima.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -609,22 +609,22 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.next_historial:
+            case R.id.next_historial:
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_nav_formaspago:
+            case R.id.btn_nav_formaspago:
                 intent = new Intent(PedirSieteMap.this , Transaccion_cliente_Activity.class);
                 startActivity(intent);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_nav_miperfil:
+            case R.id.btn_nav_miperfil:
                 intent =  new Intent(PedirSieteMap.this , Perfil_ClienteFragment.class);
                 startActivity(intent);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_nav_misviajes:
+            case R.id.btn_nav_misviajes:
                 intent =  new Intent(PedirSieteMap.this , MisViajes_Cliente_Activity.class);
                 startActivity(intent);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_nav_preferencias:
+            case R.id.btn_nav_preferencias:
                 intent =  new Intent(PedirSieteMap.this , Preferencias.class);
                 startActivity(intent);
                 break;
@@ -681,7 +681,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     fin.latitude,
                     fin.longitude,
                     results);
-            if(results[0]> Float.valueOf(getString(ricardopazdemiquel.com.imotos.R.string.maxima_km_busqueda))){
+            if(results[0]> Float.valueOf(getString(R.string.maxima_km_busqueda))){
                 Toast.makeText(PedirSieteMap.this,"Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
                 return;
             }else if (tipo_carrera == 1){
@@ -723,7 +723,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     fin.latitude,
                     fin.longitude,
                     results);
-            if(results[0]> Float.valueOf(getString(ricardopazdemiquel.com.imotos.R.string.maxima_km_busqueda))){
+            if(results[0]> Float.valueOf(getString(R.string.maxima_km_busqueda))){
                 Toast.makeText(PedirSieteMap.this,"Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
                 return;
             }else if(tipo_carrera == 2){
@@ -771,7 +771,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     fin.latitude,
                     fin.longitude,
                     results);
-            if(results[0]>  Float.valueOf(getString(ricardopazdemiquel.com.imotos.R.string.maxima_km_busqueda))){
+            if(results[0]>  Float.valueOf(getString(R.string.maxima_km_busqueda))){
                 Toast.makeText(PedirSieteMap.this,"Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
                 return;
             }else{
@@ -800,8 +800,8 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 DownloadTask downloadTask= new DownloadTask();
                 downloadTask.execute(url);
                 tipo_carrera = tipo;
-                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
-                googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
+                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , R.drawable.asetmar)));
+                googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 builder.include(latlng1);
                 builder.include(latlng2);
@@ -830,8 +830,8 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 DownloadTask downloadTask= new DownloadTask();
                 downloadTask.execute(url);
                 tipo_carrera = tipo;
-                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
-                googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
+                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , R.drawable.asetmar)));
+                googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 builder.include(latlng1);
                 builder.include(latlng2);
@@ -850,7 +850,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     }
 
     private BitmapDescriptor Inicio_bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, ricardopazdemiquel.com.imotos.R.drawable.ic_icon_pointer_map);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_icon_pointer_map);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -862,7 +862,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     }
 
     private BitmapDescriptor Fin_bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, ricardopazdemiquel.com.imotos.R.drawable.ic_icon_pointer_map2);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_icon_pointer_map2);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -998,7 +998,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
         String str_dest = "destination="+dest.latitude+","+dest.longitude;
 
-        String key = "key="+getString(ricardopazdemiquel.com.imotos.R.string.apikey);
+        String key = "key="+getString(R.string.apikey);
 
         String parameters = str_origin+"&"+str_dest;
 
@@ -1242,7 +1242,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_costo");
             parametros.put("id",id+"");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             return respuesta;
         }
         @Override

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

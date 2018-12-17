@@ -45,18 +45,18 @@ public class Editar_perfil_Activity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle onSaveInstanceState) {
         super.onCreate(onSaveInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_editar_perfil);
+        setContentView(R.layout.activity_editar_perfil);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        textNombre = findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombreCliente);
-        text_titulo = findViewById(ricardopazdemiquel.com.imotos.R.id.text_titulo);
-        btn_guardar  = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_guardar);
-        text_apellido_ma = findViewById(ricardopazdemiquel.com.imotos.R.id.text_apellido_ma);
-        Liner_apellido = findViewById(ricardopazdemiquel.com.imotos.R.id.Liner_apellido);
+        textNombre = findViewById(R.id.text_nombreCliente);
+        text_titulo = findViewById(R.id.text_titulo);
+        btn_guardar  = findViewById(R.id.btn_guardar);
+        text_apellido_ma = findViewById(R.id.text_apellido_ma);
+        Liner_apellido = findViewById(R.id.Liner_apellido);
         btn_guardar.setOnClickListener(this);
 
         Intent intent= getIntent();
@@ -128,7 +128,7 @@ public class Editar_perfil_Activity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case ricardopazdemiquel.com.imotos.R.id.btn_guardar:
+            case R.id.btn_guardar:
                 isValue();
             break;
         }
@@ -260,7 +260,7 @@ public class Editar_perfil_Activity extends AppCompatActivity implements View.On
             parametros.put("correo",correo);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }
@@ -337,7 +337,7 @@ public class Editar_perfil_Activity extends AppCompatActivity implements View.On
             parametros.put("correo",correo);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }

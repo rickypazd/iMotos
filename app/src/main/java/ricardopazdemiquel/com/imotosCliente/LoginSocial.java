@@ -66,14 +66,14 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_login_social);
+        setContentView(R.layout.activity_login_social);
 
-        signInButton = findViewById(ricardopazdemiquel.com.imotos.R.id.sign_in_button);
-        btnfacebook = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_face);
-        tv_terminos = findViewById(ricardopazdemiquel.com.imotos.R.id.tv_terminos);
-        check = findViewById(ricardopazdemiquel.com.imotos.R.id.check);
+        signInButton = findViewById(R.id.sign_in_button);
+        btnfacebook = findViewById(R.id.btn_face);
+        tv_terminos = findViewById(R.id.tv_terminos);
+        check = findViewById(R.id.check);
 
-        logestandar = findViewById(ricardopazdemiquel.com.imotos.R.id.logestandar);
+        logestandar = findViewById(R.id.logestandar);
         logestandar.setOnClickListener(this);
 
         tv_terminos.setOnClickListener(this);
@@ -207,7 +207,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_face:
+            case R.id.btn_face:
                 if (Ischeck) {
                     InitLoginFacebook();
                 } else {
@@ -216,11 +216,11 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
                     //check.setBackgroundTintList(getResources().getColorStateList(R.color.red_A700));
                 }
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.tv_terminos:
+            case R.id.tv_terminos:
                 Intent intent = new Intent(LoginSocial.this, Terminos_CondicionesActivity.class );
                 startActivity(intent);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.logestandar:
+            case R.id.logestandar:
                 Intent intent3 = new Intent(LoginSocial.this, Iniciar_Sesion_Activity.class );
                 startActivity(intent3);
                 break;
@@ -234,7 +234,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
 
     private void InitLoginFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        loginButton = findViewById(ricardopazdemiquel.com.imotos.R.id.loginFacebook);
+        loginButton = findViewById(R.id.loginFacebook);
         loginButton.setReadPermissions("email");
         loginButton.callOnClick();
 
@@ -360,7 +360,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
             parametros.put("evento", "get_usuario_face");
             parametros.put("id_usr", id + "");
             parametros.put("token", Token.currentToken);
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
 
@@ -396,7 +396,7 @@ public class LoginSocial extends AppCompatActivity implements OnClickListener {
             parametros.put("evento", "get_usuario_gmail");
             parametros.put("id_usr", id + "");
             parametros.put("token", Token.currentToken);
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
 

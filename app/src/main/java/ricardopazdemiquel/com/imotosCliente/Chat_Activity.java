@@ -52,26 +52,26 @@ public class Chat_Activity extends AppCompatActivity implements View.OnClickList
 
     protected void onCreate(Bundle onSaveInstanceState){
         super.onCreate(onSaveInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_list_chat);
+        setContentView(R.layout.activity_list_chat);
 
-        Toolbar toolbar = (Toolbar) findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar3);
         //nuevo comentario
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        tv_nombre_receptor=findViewById(ricardopazdemiquel.com.imotos.R.id.nombre_receptor);
-        btn_enviar = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_enviar);
-        foto_img = findViewById(ricardopazdemiquel.com.imotos.R.id.foto_img);
-        text_mensaje = findViewById(ricardopazdemiquel.com.imotos.R.id.text_mensaje);
-        lv = findViewById(ricardopazdemiquel.com.imotos.R.id.list_chat);
+        tv_nombre_receptor=findViewById(R.id.nombre_receptor);
+        btn_enviar = findViewById(R.id.btn_enviar);
+        foto_img = findViewById(R.id.foto_img);
+        text_mensaje = findViewById(R.id.text_mensaje);
+        lv = findViewById(R.id.list_chat);
         id_emisor= Integer.parseInt(getIntent().getStringExtra("id_emisor"));
         id_receptor= Integer.parseInt(getIntent().getStringExtra("id_receptor"));
         nombre_receptor=getIntent().getStringExtra("nombre_receptor");
         nombre_receptor=getIntent().getStringExtra("nombre_receptor");
         String img = getIntent().getStringExtra("foto_perfil");
         if(img.length()>0){
-            new AsyncTaskLoadImage(foto_img).execute(getString(ricardopazdemiquel.com.imotos.R.string.url_foto)+img);
+            new AsyncTaskLoadImage(foto_img).execute(getString(R.string.url_foto)+img);
         }
         tv_nombre_receptor.setText(nombre_receptor);
         btn_enviar.setOnClickListener(this);
@@ -155,7 +155,7 @@ public class Chat_Activity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_enviar:
+            case R.id.btn_enviar:
                 enviar_mensaje();
                 break;
         }
@@ -259,7 +259,7 @@ public class Chat_Activity extends AppCompatActivity implements View.OnClickList
             param.put("id_emisor",id_emisor+"");
             param.put("id_receptor",id_receptor+"");
             param.put("mensaje",mensaje+"");
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 

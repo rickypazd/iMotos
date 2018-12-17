@@ -26,7 +26,7 @@ import org.json.JSONObject;
 import java.util.Hashtable;
 
 import ricardopazdemiquel.com.imotosCliente.MainActivity;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 import ricardopazdemiquel.com.imotosCliente.clienteHTTP.HttpConnection;
 import ricardopazdemiquel.com.imotosCliente.clienteHTTP.MethodType;
 import ricardopazdemiquel.com.imotosCliente.clienteHTTP.StandarRequestConfiguration;

@@ -55,16 +55,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
         Intent inten = new Intent(MainActivity.this,PedirSieteMap.class);
         startActivity(inten);
         finish();
 
-        ImageView fab = findViewById(ricardopazdemiquel.com.imotos.R.id.fab);
+        ImageView fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DrawerLayout drawer = (DrawerLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.drawer_layout);
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);
                 } else{
@@ -73,19 +73,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, null, ricardopazdemiquel.com.imotos.R.string.navigation_drawer_open, ricardopazdemiquel.com.imotos.R.string.navigation_drawer_close);
+                this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(ricardopazdemiquel.com.imotos.R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        View header = navigationView.inflateHeaderView(ricardopazdemiquel.com.imotos.R.layout.nav_header_main);
-        btn_nav_formaspago=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_formaspago);
-        btn_nav_miperfil=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_miperfil);
-        btn_nav_misviajes=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_misviajes);
-        btn_nav_preferencias=header.findViewById(ricardopazdemiquel.com.imotos.R.id.btn_nav_preferencias);
+        View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        btn_nav_formaspago=header.findViewById(R.id.btn_nav_formaspago);
+        btn_nav_miperfil=header.findViewById(R.id.btn_nav_miperfil);
+        btn_nav_misviajes=header.findViewById(R.id.btn_nav_misviajes);
+        btn_nav_preferencias=header.findViewById(R.id.btn_nav_preferencias);
 
         btn_nav_formaspago.setOnClickListener(this);
         btn_nav_miperfil.setOnClickListener(this);
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(ricardopazdemiquel.com.imotos.R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == ricardopazdemiquel.com.imotos.R.id.action_settings) {
+        if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 fragmentoGenerico= new Elejir_tipo_siete();
                 break;
         }
-            fragmentManager.beginTransaction().replace(ricardopazdemiquel.com.imotos.R.id.contenmain, fragmentoGenerico).commit();
+            fragmentManager.beginTransaction().replace(R.id.contenmain, fragmentoGenerico).commit();
         if (fragmentoGenerico != null) {
 
         }
@@ -214,25 +214,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent;
             int id=v.getId();
             switch (id){
-                 case ricardopazdemiquel.com.imotos.R.id.btn_nav_formaspago:
+                 case R.id.btn_nav_formaspago:
                      intent = new Intent(MainActivity.this , Transaccion_cliente_Activity.class);
                      startActivity(intent);
                      break;
-                 case ricardopazdemiquel.com.imotos.R.id.btn_nav_miperfil:
+                 case R.id.btn_nav_miperfil:
                      intent =  new Intent(MainActivity.this , Perfil_ClienteFragment.class);
                      startActivity(intent);
                      break;
-                 case ricardopazdemiquel.com.imotos.R.id.btn_nav_misviajes:
+                 case R.id.btn_nav_misviajes:
                      intent =  new Intent(MainActivity.this , MisViajes_Cliente_Activity.class);
                      startActivity(intent);
                      break;
-                 case ricardopazdemiquel.com.imotos.R.id.btn_nav_preferencias:
+                 case R.id.btn_nav_preferencias:
                      intent =  new Intent(MainActivity.this , Preferencias.class);
                      startActivity(intent);
                      break;
              }
 
-             DrawerLayout drawer = (DrawerLayout) findViewById(ricardopazdemiquel.com.imotos.R.id.drawer_layout);
+             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
              drawer.closeDrawer(GravityCompat.START);
          }
 
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
              Hashtable<String, String> parametros = new Hashtable<>();
              parametros.put("evento", "get_carrera_cliente");
              parametros.put("id_usr",id+"");
-             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
              return respuesta;
          }
          @Override

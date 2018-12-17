@@ -10,12 +10,12 @@ public class Terminos_CondicionesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_terminos_condiciones);
+        setContentView(R.layout.activity_terminos_condiciones);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
     }
 

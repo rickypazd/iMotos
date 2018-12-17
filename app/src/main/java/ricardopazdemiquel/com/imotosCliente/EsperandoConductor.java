@@ -108,22 +108,22 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_esperando_conductor);
+        setContentView(R.layout.activity_esperando_conductor);
 
-        text_nombreConductor = findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombreConductor);
-        btn_llamar = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_llamar);
-        btn_enviar_mensaje = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_enviar_mensaje);
-        text_nombreAuto = findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombreAuto);
-        text_numeroPlaca = findViewById(ricardopazdemiquel.com.imotos.R.id.text_numeroPlaca);
-        text_Viajes = findViewById(ricardopazdemiquel.com.imotos.R.id.text_Viajes);
-        img_foto = findViewById(ricardopazdemiquel.com.imotos.R.id.img_foto);
-        Container_cancelar = findViewById(ricardopazdemiquel.com.imotos.R.id.Container_cancelar);
-        Container_verPerfil = findViewById(ricardopazdemiquel.com.imotos.R.id.Container_verPerfil);
-        btn_cancelar_viaje = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_cancelar_viaje);
+        text_nombreConductor = findViewById(R.id.text_nombreConductor);
+        btn_llamar = findViewById(R.id.btn_llamar);
+        btn_enviar_mensaje = findViewById(R.id.btn_enviar_mensaje);
+        text_nombreAuto = findViewById(R.id.text_nombreAuto);
+        text_numeroPlaca = findViewById(R.id.text_numeroPlaca);
+        text_Viajes = findViewById(R.id.text_Viajes);
+        img_foto = findViewById(R.id.img_foto);
+        Container_cancelar = findViewById(R.id.Container_cancelar);
+        Container_verPerfil = findViewById(R.id.Container_verPerfil);
+        btn_cancelar_viaje = findViewById(R.id.btn_cancelar_viaje);
         //text_ultimo_mensaje = findViewById(R.id.text_ultimo_mensaje);
 
-        liner_mensaje = findViewById(ricardopazdemiquel.com.imotos.R.id.liner_mensaje);
-        btn_mensaje = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_mensaje);
+        liner_mensaje = findViewById(R.id.liner_mensaje);
+        btn_mensaje = findViewById(R.id.btn_mensaje);
 
         btn_mensaje.setOnClickListener(this);
         btn_cancelar_viaje.setOnClickListener(this);
@@ -146,7 +146,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
 
         usr_log = getUsr_log();
 
-        View view = findViewById(ricardopazdemiquel.com.imotos.R.id.button_sheet);
+        View view = findViewById(R.id.button_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(view);
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -163,7 +163,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             }
         });
 
-        mMapView = findViewById(ricardopazdemiquel.com.imotos.R.id.mapView2);
+        mMapView = findViewById(R.id.mapView2);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
         MapsInitializer.initialize(this.getApplicationContext());
@@ -192,7 +192,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             layoutParams.setMargins(0, 0, 30, 600);
-            locationButton.setImageResource(ricardopazdemiquel.com.imotos.R.drawable.ic_mapposition_foreground);
+            locationButton.setImageResource(R.drawable.ic_mapposition_foreground);
         }
     }
 
@@ -357,7 +357,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
 
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
-        String key = "key=" + getString(ricardopazdemiquel.com.imotos.R.string.apikey);
+        String key = "key=" + getString(R.string.apikey);
 
         String parameters = str_origin + "&" + str_dest;
 
@@ -371,10 +371,10 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_cancelar_viaje:
+            case R.id.btn_cancelar_viaje:
                 new Cancelar_viaje().execute();
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_mensaje:
+            case R.id.btn_mensaje:
                 android.app.FragmentManager fragmentManager = getFragmentManager();
                 new Ver_Producto_Dialog(mensaje).show(fragmentManager, "Dialog");
                 break;
@@ -536,7 +536,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 
@@ -608,14 +608,14 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                             downloadTask.execute(url);
                         }
                         if (mardest == null) {
-                            googleMap.addMarker(new MarkerOptions().position(ll2).title("FIN").icon(Fin_bitmapDescriptorFromVector(getApplication(), ricardopazdemiquel.com.imotos.R.drawable.asetmar)));
+                            googleMap.addMarker(new MarkerOptions().position(ll2).title("FIN").icon(Fin_bitmapDescriptorFromVector(getApplication(), R.drawable.asetmar)));
                         } else {
                             mardest.setPosition(ll2);
                         }
                         float degre = Float.parseFloat(obj.getString("bearing"));
                         if (marauto == null) {
 
-                            marauto = googleMap.addMarker(new MarkerOptions().position(ll1).title("AUTO").rotation(degre).icon(Auto_bitmapDescriptorFromVector(getApplication(), ricardopazdemiquel.com.imotos.R.drawable.auto)).anchor(0.5f, 0.5f));
+                            marauto = googleMap.addMarker(new MarkerOptions().position(ll1).title("AUTO").rotation(degre).icon(Auto_bitmapDescriptorFromVector(getApplication(), R.drawable.auto)).anchor(0.5f, 0.5f));
                         } else {
                             marauto.setPosition(ll1);
                             marauto.setRotation(degre);
@@ -636,7 +636,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
 
 
     private BitmapDescriptor Fin_bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, ricardopazdemiquel.com.imotos.R.drawable.ic_icon_pointer_map3);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_icon_pointer_map3);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(100, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -649,7 +649,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
 
 
     private BitmapDescriptor Auto_bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
-        Drawable background = ContextCompat.getDrawable(context, ricardopazdemiquel.com.imotos.R.drawable.ic_motoubicasset_2asd);
+        Drawable background = ContextCompat.getDrawable(context, R.drawable.ic_motoubicasset_2asd);
         background.setBounds(0, 0, background.getIntrinsicWidth(), background.getIntrinsicHeight());
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorDrawableResourceId);
         vectorDrawable.setBounds(40, 20, vectorDrawable.getIntrinsicWidth() + 40, vectorDrawable.getIntrinsicHeight() + 20);
@@ -680,7 +680,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, param));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, param));
             return respuesta;
         }
 
@@ -720,7 +720,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_info_con_carrera");
             parametros.put("id_carrera", id);
-            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+            String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             return respuesta;
         }
 
@@ -867,7 +867,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             }
             String respuesta = "";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, param));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, param));
             } catch (Exception e) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }
@@ -927,7 +927,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
             param.put("json", Json_cancelarViaje.toString());
             String respuesta = "";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, param));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, param));
             } catch (Exception e) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }

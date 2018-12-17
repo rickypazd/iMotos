@@ -50,25 +50,25 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle onSaveInstanceState) {
         super.onCreate(onSaveInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.fragment_perfil_cliente);
+        setContentView(R.layout.fragment_perfil_cliente);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        textNombre = findViewById(ricardopazdemiquel.com.imotos.R.id.text_nombreCliente);
-        textApellido = findViewById(ricardopazdemiquel.com.imotos.R.id.text_apellidoCliente);
-        textTelefono = findViewById(ricardopazdemiquel.com.imotos.R.id.text_numero_telefono);
-        textEmail = findViewById(ricardopazdemiquel.com.imotos.R.id.text_email_cliente);
-        img_photo = findViewById(ricardopazdemiquel.com.imotos.R.id.img_photo);
+        textNombre = findViewById(R.id.text_nombreCliente);
+        textApellido = findViewById(R.id.text_apellidoCliente);
+        textTelefono = findViewById(R.id.text_numero_telefono);
+        textEmail = findViewById(R.id.text_email_cliente);
+        img_photo = findViewById(R.id.img_photo);
 
-        textcredito = findViewById(ricardopazdemiquel.com.imotos.R.id.creditos);
+        textcredito = findViewById(R.id.creditos);
 
-        Liner_nombre = findViewById(ricardopazdemiquel.com.imotos.R.id.Liner_nombre);
-        Liner_apellido = findViewById(ricardopazdemiquel.com.imotos.R.id.Liner_apellido);
-        Liner_telefono = findViewById(ricardopazdemiquel.com.imotos.R.id.Liner_telefono);
-        Liner_correo = findViewById(ricardopazdemiquel.com.imotos.R.id.Liner_correo);
+        Liner_nombre = findViewById(R.id.Liner_nombre);
+        Liner_apellido = findViewById(R.id.Liner_apellido);
+        Liner_telefono = findViewById(R.id.Liner_telefono);
+        Liner_correo = findViewById(R.id.Liner_correo);
 
         Liner_nombre.setOnClickListener(this);
         Liner_apellido.setOnClickListener(this);
@@ -120,7 +120,7 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
         Intent intent = new Intent(Perfil_ClienteFragment.this , Editar_perfil_Activity.class);
         final JSONObject usr_log = getUsr_log();
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.Liner_nombre:
+            case R.id.Liner_nombre:
                 if (usr_log != null) {
                     try {
                         String nombre = usr_log.getString("nombre");
@@ -134,7 +134,7 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
                     finish();
                 }
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.Liner_apellido:
+            case R.id.Liner_apellido:
                 if (usr_log != null) {
                     try {
                         String apellido_pa = usr_log.getString("apellido_pa");
@@ -150,7 +150,7 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
                     finish();
                 }
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.Liner_telefono:
+            case R.id.Liner_telefono:
                 if (usr_log != null) {
                     try {
                         String telefono = usr_log.getString("telefono");
@@ -164,7 +164,7 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
                     finish();
                 }
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.Liner_correo:
+            case R.id.Liner_correo:
                 if (usr_log != null) {
                     try {
                         String correo = usr_log.getString("correo");
@@ -199,7 +199,7 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
                 textEmail.setText(correo);
                 textcredito.setText(String.format("%.2f",valor));
                 if(usr_log.getString("foto_perfil").length()>0){
-                    new AsyncTaskLoadImage(img_photo).execute(getString(ricardopazdemiquel.com.imotos.R.string.url_foto)+usr_log.getString("foto_perfil"));
+                    new AsyncTaskLoadImage(img_photo).execute(getString(R.string.url_foto)+usr_log.getString("foto_perfil"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -251,7 +251,7 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
             parametros.put("id",id);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_index), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_index), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }

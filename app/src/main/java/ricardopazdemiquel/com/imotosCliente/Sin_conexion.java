@@ -18,8 +18,8 @@ public class Sin_conexion extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_sin_conexion);
-        reintentar=findViewById(ricardopazdemiquel.com.imotos.R.id.reintentar);
+        setContentView(R.layout.activity_sin_conexion);
+        reintentar=findViewById(R.id.reintentar);
         reintentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

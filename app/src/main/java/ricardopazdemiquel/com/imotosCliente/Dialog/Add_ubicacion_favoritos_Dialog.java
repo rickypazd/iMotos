@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ricardopazdemiquel.com.imotosCliente.Adapter.Adapter_favoritos;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 import ricardopazdemiquel.com.imotosCliente.favoritos_pruba;
 
 import org.json.JSONArray;

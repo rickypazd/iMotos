@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import ricardopazdemiquel.com.imotosCliente.Adapter.Adapter_producto_togo;
 import ricardopazdemiquel.com.imotosCliente.Dialog.Producto_togo_Dialog;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

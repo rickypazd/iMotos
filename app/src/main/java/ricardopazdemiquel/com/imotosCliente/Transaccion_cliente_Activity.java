@@ -32,14 +32,14 @@ public class Transaccion_cliente_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle onSaveInstanceState) {
         super.onCreate(onSaveInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_list_transaccion);
+        setContentView(R.layout.activity_list_transaccion);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        lv = findViewById(ricardopazdemiquel.com.imotos.R.id.list_transaccion);
+        lv = findViewById(R.id.list_transaccion);
 
         final JSONObject usr_log = getUsr_log();
         if (usr_log != null) {
@@ -115,7 +115,7 @@ public class Transaccion_cliente_Activity extends AppCompatActivity {
             parametros.put("id",id);
             String respuesta ="";
             try {
-                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(ricardopazdemiquel.com.imotos.R.string.url_servlet_admin), MethodType.POST, parametros));
+                respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             } catch (Exception ex) {
                 Log.e(Contexto.APP_TAG, "Hubo un error al conectarse al servidor.");
             }

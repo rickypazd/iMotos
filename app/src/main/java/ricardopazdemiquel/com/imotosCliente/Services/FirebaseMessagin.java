@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 
 import ricardopazdemiquel.com.imotosCliente.PedirSieteMap;
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

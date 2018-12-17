@@ -106,22 +106,22 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ricardopazdemiquel.com.imotos.R.layout.activity_favoritos_clientes);
+        setContentView(R.layout.activity_favoritos_clientes);
 
-        Toolbar toolbar = findViewById(ricardopazdemiquel.com.imotos.R.id.toolbar3);
+        Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(ricardopazdemiquel.com.imotos.R.drawable.ic_left_arrow);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_left_arrow);
 
-        iv_marker=findViewById(ricardopazdemiquel.com.imotos.R.id.ivmarker);
-        text_direccion_togo = findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_togo);
-        container_frame = findViewById(ricardopazdemiquel.com.imotos.R.id.container_frame);
-        btn_elegir_destino = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_elegir_destino);
-        btn_agregar = findViewById(ricardopazdemiquel.com.imotos.R.id.btn_agregar);
+        iv_marker=findViewById(R.id.ivmarker);
+        text_direccion_togo = findViewById(R.id.text_direccion_togo);
+        container_frame = findViewById(R.id.container_frame);
+        btn_elegir_destino = findViewById(R.id.btn_elegir_destino);
+        btn_agregar = findViewById(R.id.btn_agregar);
         btn_elegir_destino.setOnClickListener(this);
         btn_agregar.setOnClickListener(this);
 
-        lv_List_favoritos = findViewById(ricardopazdemiquel.com.imotos.R.id.lv_List_favoritos);
+        lv_List_favoritos = findViewById(R.id.lv_List_favoritos);
         lv_List_favoritos.setOnItemClickListener(this);
 
         cargar();
@@ -157,7 +157,7 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
                 .addConnectionCallbacks(this)
                 .build();
 
-        text_direccion_togo = findViewById(ricardopazdemiquel.com.imotos.R.id.text_direccion_togo);
+        text_direccion_togo = findViewById(R.id.text_direccion_togo);
         text_direccion_togo.setOnFocusChangeListener(this);
         text_direccion_togo.setThreshold(3);
         text_direccion_togo.setOnItemClickListener(mAutocompleteClickListener);
@@ -174,7 +174,7 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
             finish();
         }
 
-        mMapView = findViewById(ricardopazdemiquel.com.imotos.R.id.mapviewPedirSiete);
+        mMapView = findViewById(R.id.mapviewPedirSiete);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
 
@@ -250,9 +250,9 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if(v.getId() == ricardopazdemiquel.com.imotos.R.id.lv_List_favoritos) {
+        if(v.getId() == R.id.lv_List_favoritos) {
             MenuInflater inflater = getMenuInflater();
-            inflater.inflate(ricardopazdemiquel.com.imotos.R.menu.menu_context_producto, menu);
+            inflater.inflate(R.menu.menu_context_producto, menu);
         }
     }
 
@@ -271,14 +271,14 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
             e.printStackTrace();
         }
         switch (item.getItemId()) {
-            case ricardopazdemiquel.com.imotos.R.id.action_delate_producto:
+            case R.id.action_delate_producto:
                 if(pos == 0 ){
                     Toast.makeText(favoritos_pruba.this , "no se puede eliminar." , Toast.LENGTH_LONG).show();
                 }else{
                     removeItem(pos);
                 }
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.action_update_producto:
+            case R.id.action_update_producto:
                 if(pos == 0 ){
                     Toast.makeText(favoritos_pruba.this , "no se puede editar." , Toast.LENGTH_LONG).show();
                 }else{
@@ -396,11 +396,11 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         android.app.FragmentManager fragmentManager = getFragmentManager();
         switch (view.getId()) {
-            case ricardopazdemiquel.com.imotos.R.id.btn_elegir_destino:
+            case R.id.btn_elegir_destino:
                 container_frame.setVisibility(View.GONE);
                 btn_agregar.setVisibility(View.VISIBLE);
                 break;
-            case ricardopazdemiquel.com.imotos.R.id.btn_agregar:
+            case R.id.btn_agregar:
                 JSONObject obj = new JSONObject();
                 Double latFin = fin.latitude;
                 Double lngFin = fin.longitude;
@@ -486,7 +486,7 @@ public class favoritos_pruba extends AppCompatActivity implements View.OnClickLi
 
         String str_dest = "destination="+dest.latitude+","+dest.longitude;
 
-        String key = "key="+getString(ricardopazdemiquel.com.imotos.R.string.apikey);
+        String key = "key="+getString(R.string.apikey);
 
         String parameters = str_origin+"&"+str_dest;
 

@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import ricardopazdemiquel.com.imotos.R;
+import ricardopazdemiquel.com.imotosCliente.R;
 
 /**
  * Created by Edson on 02/12/2017.
