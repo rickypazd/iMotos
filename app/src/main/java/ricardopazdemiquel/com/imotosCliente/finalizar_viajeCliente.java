@@ -21,7 +21,7 @@ import ricardopazdemiquel.com.imotosCliente.clienteHTTP.MethodType;
 import ricardopazdemiquel.com.imotosCliente.clienteHTTP.StandarRequestConfiguration;
 import ricardopazdemiquel.com.imotosCliente.utiles.Contexto;
 
-public class finalizar_viajeCliente extends AppCompatActivity implements View.OnClickListener {
+public class finalizar_viajeCliente extends AppCompatActivity{
 
     // private Button nombre;
 
@@ -32,7 +32,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
     //Fragment fragment_2  = null;
     private float ratings;
     private int frag;
-    private Button btn_enviar_mensaje;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,7 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        btn_enviar_mensaje = findViewById(R.id.btn_enviar_mensaje);
-        btn_enviar_mensaje.setOnClickListener(this);
+
 
         ratingBar = findViewById(R.id.ratingBar);
         fragment_1 = new FinalizarViajeFragment_1();
@@ -69,16 +68,12 @@ public class finalizar_viajeCliente extends AppCompatActivity implements View.On
         return carrera;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_enviar_mensaje:
-                try {
-                    new Finalizo(carrera.getInt("id"), ratings, "", false, false, false);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
+
+    public void  finalizo_carrera(){
+        try {
+            new Finalizo(carrera.getInt("id"), ratings, "", false, false, false).execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
