@@ -197,7 +197,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:inputType="textPersonName"
-                        android:text="asdhasuhdaskdsaha"
+                        android:text=""
                         android:textColor="@color/colorBlack"
                         android:textSize="18dp" />
 
@@ -238,7 +238,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:inputType="textPersonName"
-                            android:text="sdfsdfsdgd"
+                            android:text=""
                             android:textColor="@color/colorBlack"
                             android:textSize="15dp" />
 
@@ -269,7 +269,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:inputType="textPersonName"
-                            android:text="sdgfsdgsdgsd"
+                            android:text=""
                             android:textColor="@color/colorBlack"
                             android:textSize="15dp" />
 
