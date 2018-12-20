@@ -56,8 +56,8 @@ public class FinalizarViajeFragment_1 extends Fragment implements View.OnClickLi
             double lat_f  = carrera.getDouble("latfinal");
             double lng_i = carrera.getDouble("lnginicial");
             double lng_f = carrera.getDouble("lngfinal");
-            String inicial = get_localizacion(lat_i , lng_i);
-            String finales =  get_localizacion(lat_f , lng_f);
+            String inicial = get_localizacion(lat_i , lng_i).replaceAll("\n","");
+            String finales =  get_localizacion(lat_f , lng_f).replaceAll("\n","");
 
 
             /*switch (tipo) {
@@ -104,7 +104,6 @@ public class FinalizarViajeFragment_1 extends Fragment implements View.OnClickLi
         }
     }
 
-
     private String get_localizacion(double LATITUDE, double LONGITUDE) {
         String strAdd = "";
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
@@ -112,13 +111,12 @@ public class FinalizarViajeFragment_1 extends Fragment implements View.OnClickLi
             List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
             if (addresses != null) {
                 Address returnedAddress = addresses.get(0);
-                StringBuilder strReturnedAddress = new StringBuilder("");
+                //StringBuilder strReturnedAddress = new StringBuilder("");
 
-                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
-                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
-                }
-                strAdd = strReturnedAddress.toString();
-                Log.w("My Current loction addr", strReturnedAddress.toString());
+                strAdd=returnedAddress.getThoroughfare();
+                if(strAdd==null )
+                    strAdd=returnedAddress.getFeatureName();
+                //  Log.w("My Current loction addr", strReturnedAddress.toString());
             } else {
                 Log.w("My Current loction addr", "No Address returned!");
             }

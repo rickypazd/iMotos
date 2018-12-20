@@ -42,7 +42,7 @@
                         android:layout_weight="1"
                         android:gravity="center|start"
                         android:text="23-23-18"
-                        android:textColor="#626262"
+                        android:textColor="@color/colorBlack"
                         android:textSize="15sp" />
 
                     <TextView
@@ -52,7 +52,7 @@
                         android:layout_weight="1"
                         android:gravity="center|end"
                         android:text="bs. 5"
-                        android:textColor="#626262"
+                        android:textColor="@color/colorBlack"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -68,7 +68,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="#626262">
+                        android:background="@color/colorBlack">
 
                     </View>
                     <TextView
@@ -78,6 +78,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:inputType="textMultiLine"
+                        android:textColor="@color/colorBlack"
                         tools:text="Deuda" />
 
                 </LinearLayout>

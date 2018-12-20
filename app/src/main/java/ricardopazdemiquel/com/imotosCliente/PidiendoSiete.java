@@ -183,7 +183,6 @@ public class PidiendoSiete extends AppCompatActivity implements OnClickListener 
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-
         }
     }
 
