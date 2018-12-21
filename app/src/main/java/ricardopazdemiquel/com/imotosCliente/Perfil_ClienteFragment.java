@@ -76,14 +76,14 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
         Liner_correo.setOnClickListener(this);
 
 
-        final JSONObject usr_log = getUsr_log();
+        /*final JSONObject usr_log = getUsr_log();
         if (usr_log != null) {
             try {
                 new User_getPerfil(usr_log.getString("id")).execute();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
     }
 
     // Opcion para ir atras sin reiniciar el la actividad anterior de nuevo
@@ -198,8 +198,14 @@ public class Perfil_ClienteFragment extends AppCompatActivity implements View.On
                 textTelefono.setText("+591 "+telefono);
                 textEmail.setText(correo);
                 textcredito.setText(String.format("%.2f",valor));
-                if(usr_log.getString("foto_perfil").length()>0){
+                /*if(usr_log.getString("foto_perfil").length()>0){
                     new AsyncTaskLoadImage(img_photo).execute(getString(R.string.url_foto)+usr_log.getString("foto_perfil"));
+                }*/
+                if(usr_log.getString("id_face").length()>0){
+                    //cargar_img_face
+                    String id_face=usr_log.getString("id_face");
+                    String url="https://graph.facebook.com/" +id_face+"/picture?type=large";
+                    new AsyncTaskLoadImage(img_photo).execute(url);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

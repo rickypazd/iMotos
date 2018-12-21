@@ -80,7 +80,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
     private CoordinatorLayout Container_verPerfil;
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView text_nombreConductor;
-    private ImageView img_foto;
+    private com.mikhaellopez.circularimageview.CircularImageView img_photo;
     private TextView text_nombreAuto;
     private TextView text_numeroPlaca;
     private TextView text_Viajes;
@@ -116,7 +116,7 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
         text_nombreAuto = findViewById(R.id.text_nombreAuto);
         text_numeroPlaca = findViewById(R.id.text_numeroPlaca);
         text_Viajes = findViewById(R.id.text_Viajes);
-        img_foto = findViewById(R.id.img_foto);
+        img_photo = findViewById(R.id.img_photo);
         Container_cancelar = findViewById(R.id.Container_cancelar);
         Container_verPerfil = findViewById(R.id.Container_verPerfil);
         btn_cancelar_viaje = findViewById(R.id.btn_cancelar_viaje);
@@ -794,11 +794,11 @@ public class EsperandoConductor extends AppCompatActivity implements View.OnClic
                             }
                         });
                     }
-                    /*if(object.has("foto_perfil")){
-                        if(object.getString("foto_perfil").length()>0){
-                            new AsyncTaskLoadImage(img_foto).execute(getString(R.string.url_foto)+object.getString("foto_perfil"));
+                    if (object.has("foto_perfil")) {
+                        if (object.getString("foto_perfil").length() > 0) {
+                            new AsyncTaskLoadImage(img_photo).execute(getString(R.string.url_foto) + object.getString("foto_perfil"));
                         }
-                    }*/
+                    }
                 } else {
                     Toast.makeText(EsperandoConductor.this, "Error al obtener Datos", Toast.LENGTH_SHORT).show();
                 }
