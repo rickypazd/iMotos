@@ -23,7 +23,7 @@
             android:paddingStart="20dp">
 
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:id="@+id/arrow"
+                android:id="@+id/img_photo"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_alignParentRight="true"

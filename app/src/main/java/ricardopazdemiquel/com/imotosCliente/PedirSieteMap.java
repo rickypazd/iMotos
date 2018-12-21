@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -50,6 +51,7 @@ import android.widget.Toast;
 import ricardopazdemiquel.com.imotosCliente.Dialog.Producto_imoto_Dialog;
 import ricardopazdemiquel.com.imotosCliente.Fragment.List_historial_fragment;
 import ricardopazdemiquel.com.imotosCliente.Fragment.SetupViewPager_fragment;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -94,7 +96,7 @@ import ricardopazdemiquel.com.imotosCliente.utiles.BehaviorCuston;
 import ricardopazdemiquel.com.imotosCliente.utiles.DirectionsJSONParser;
 import ricardopazdemiquel.com.imotosCliente.utiles.Token;
 
-public class PedirSieteMap extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, GoogleApiClient.OnConnectionFailedListener,GoogleApiClient.ConnectionCallbacks {
+public class PedirSieteMap extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private BroadcastReceiver broadcastReceiverMessage;
     MapView mMapView;
@@ -132,6 +134,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
     private TextView barnombre;
     private TextView bartelefono;
+    private com.mikhaellopez.circularimageview.CircularImageView img_photo;
     //
 
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
@@ -155,13 +158,13 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
     double mont;
 
-    private Boolean listo=false;
+    private Boolean listo = false;
     Fragment fragment_favoritos = null;
     Fragment fragment_historial = null;
     android.support.v4.app.Fragment SetupViewPager_fragment = null;
 
-    double longitudeGPS= -63.182033;
-    double latitudeGPS=-17.783274;
+    double longitudeGPS = -63.182033;
+    double latitudeGPS = -17.783274;
     private Button btn_ver_listo;
     private LatLng latlngtemp;
     Toolbar toolbar;
@@ -182,21 +185,28 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        btn_nav_formaspago=header.findViewById(R.id.btn_nav_formaspago);
-        btn_nav_miperfil=header.findViewById(R.id.btn_nav_miperfil);
-        btn_nav_misviajes=header.findViewById(R.id.btn_nav_misviajes);
-        btn_nav_preferencias=header.findViewById(R.id.btn_nav_preferencias);
+        btn_nav_formaspago = header.findViewById(R.id.btn_nav_formaspago);
+        btn_nav_miperfil = header.findViewById(R.id.btn_nav_miperfil);
+        btn_nav_misviajes = header.findViewById(R.id.btn_nav_misviajes);
+        btn_nav_preferencias = header.findViewById(R.id.btn_nav_preferencias);
         btn_nav_formaspago.setOnClickListener(this);
         btn_nav_miperfil.setOnClickListener(this);
         btn_nav_misviajes.setOnClickListener(this);
         btn_nav_preferencias.setOnClickListener(this);
-        barnombre=header.findViewById(R.id.barnombre);
-        bartelefono=header.findViewById(R.id.bartelefono);
+        barnombre = header.findViewById(R.id.barnombre);
+        bartelefono = header.findViewById(R.id.bartelefono);
+        img_photo = header.findViewById(R.id.img_photo);
         JSONObject usr = getUsr_log();
         runtime_permissions();
         try {
-            barnombre.setText(usr.getString("nombre")+" "+usr.getString("apellido_pa"));
-            bartelefono.setText("+591 "+usr.getString("telefono"));
+            barnombre.setText(usr.getString("nombre") + " " + usr.getString("apellido_pa"));
+            bartelefono.setText("+591 " + usr.getString("telefono"));
+            if (usr.getString("id_face").length() > 0) {
+                //cargar_img_face
+                String id_face = usr.getString("id_face");
+                String url = "https://graph.facebook.com/" + id_face + "/picture?type=large";
+                new AsyncTaskLoadImage(img_photo).execute(url);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -207,7 +217,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);
-                } else{
+                } else {
                     drawer.openDrawer(GravityCompat.START);
                 }
             }
@@ -216,7 +226,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         //
         toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
-        toolbar.setContentInsetsAbsolute(24,24);
+        toolbar.setContentInsetsAbsolute(24, 24);
         linearLayoutPedir = findViewById(R.id.linearLayoutPedir);
 
         iv_marker = findViewById(R.id.ivmarker);
@@ -256,24 +266,23 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         //bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
 
         SetupViewPager_fragment = new SetupViewPager_fragment();
-        List_historial_fragment pagguer=new List_historial_fragment();
+        List_historial_fragment pagguer = new List_historial_fragment();
         getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment, pagguer).commit();
-
 
         mAutocompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mAutocompleteTextView.setOnFocusChangeListener(this);
         mAutocompleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selected=(AutoCompleteTextView) v;
-                AutoCompleteTextView auto =(AutoCompleteTextView)v;
+                selected = (AutoCompleteTextView) v;
+                AutoCompleteTextView auto = (AutoCompleteTextView) v;
                 selected.setText("");
                 //bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
             }
         });
         mAutocompleteTextView.setThreshold(3);
         mAutocompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
-        AutocompleteFilter auto= new AutocompleteFilter.Builder().setCountry("BO").build();
+        AutocompleteFilter auto = new AutocompleteFilter.Builder().setCountry("BO").build();
         mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
                 BOUNDS_MOUNTAIN_VIEW, auto);
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
@@ -285,9 +294,9 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         mAutocompleteTextView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selected=(AutoCompleteTextView) v;
+                selected = (AutoCompleteTextView) v;
                 //bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
-                AutoCompleteTextView auto =(AutoCompleteTextView)v;
+                AutoCompleteTextView auto = (AutoCompleteTextView) v;
                 selected.setText("");
             }
         });
@@ -297,18 +306,18 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         usr_log = getUsr_log();
 
         if (usr_log == null) {
-            Intent intent = new Intent(PedirSieteMap.this, LoginCliente.class);
+            Intent intent = new Intent(PedirSieteMap.this, LoginSocial.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
         }
 
-        active=false;
+        active = false;
 
         mMapView = findViewById(R.id.mapviewPedirSiete);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-        btn_ver_listo=findViewById(R.id.verlisto);
+        btn_ver_listo = findViewById(R.id.verlisto);
         MapsInitializer.initialize(this.getApplicationContext());
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -326,7 +335,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onMyLocationChange(Location location) {
                         if (!entroLocation) {
-                            if(selected!=mAutocompleteTextView2){
+                            if (selected != mAutocompleteTextView2) {
                                 entroLocation = true;
                                 selected.setTag(new LatLng(location.getLatitude(), location.getLongitude()));
                                 mMap.clear();
@@ -343,24 +352,24 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                             public void onCameraIdle() {
 
                                 LatLng center = googleMap.getCameraPosition().target;
-                                if(listo){
-                                    latlngtemp=center;
-                                    String addres=getCompleteAddressString(latlngtemp.latitude, latlngtemp.longitude);
+                                if (listo) {
+                                    latlngtemp = center;
+                                    String addres = getCompleteAddressString(latlngtemp.latitude, latlngtemp.longitude);
                                     selected.setText(addres);
                                     selected.dismissDropDown();
-                                    }
+                                }
 
                             }
                         });
                     }
                 });
                 btn_ver_listo.setVisibility(View.GONE);
-                listo=false;
+                listo = false;
                 googleMap.setOnCameraMoveStartedListener(new GoogleMap.OnCameraMoveStartedListener() {
                     @Override
                     public void onCameraMoveStarted(int i) {
-                        if(i== GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE){
-                            listo=true;
+                        if (i == GoogleMap.OnCameraMoveStartedListener.REASON_GESTURE) {
+                            listo = true;
                             btn_ver_listo.setVisibility(View.VISIBLE);
                         }
                     }
@@ -371,10 +380,10 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 centrar();
-                listo=false;
+                listo = false;
                 btn_ver_listo.setVisibility(View.GONE);
                 selected.setTag(latlngtemp);
-                String addres=getCompleteAddressString(latlngtemp.latitude, latlngtemp.longitude);
+                String addres = getCompleteAddressString(latlngtemp.latitude, latlngtemp.longitude);
                 selected.setText(addres);
                 selected.dismissDropDown();
             }
@@ -393,8 +402,6 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
             locationButton.setImageResource(R.drawable.ic_mapposition_foreground);
         }
-
-
     }
 
 
@@ -450,12 +457,12 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             View view = layoutInflater.inflate(R.layout.item_card_payment, container, false);
-             ImageView ima = ((ImageView) view.findViewById(R.id.card_logo));
+            ImageView ima = ((ImageView) view.findViewById(R.id.card_logo));
             ima.setImageResource(logo_array[position]);
             ima.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch (position){
+                    switch (position) {
                         case 0:
                             CalcularRuta(1);
                             break;
@@ -479,7 +486,6 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         public boolean isViewFromObject(View view, Object obj) {
             return view == obj;
         }
-
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
@@ -556,16 +562,17 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void centrar(){
+    private void centrar() {
         LatLng center = googleMap.getCameraPosition().target;
         selected.setTag(center);
-        String addres=getCompleteAddressString(center.latitude, center.longitude);
+        String addres = getCompleteAddressString(center.latitude, center.longitude);
         selected.setText(addres);
         selected.dismissDropDown();
-        calculando_ruta(10,addres,center.latitude, center.longitude);
-        listo=false;
+        calculando_ruta(10, addres, center.latitude, center.longitude);
+        listo = false;
         btn_ver_listo.setVisibility(View.GONE);
     }
+
     private Boolean active;
 
     public void close() {
@@ -580,11 +587,11 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void close_behavior(){
+    public void close_behavior() {
         bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
     }
 
-    public  void ok(){
+    public void ok() {
         try {
             ok_predir_viaje();
         } catch (JSONException e) {
@@ -613,66 +620,66 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
                 break;
             case R.id.btn_nav_formaspago:
-                intent = new Intent(PedirSieteMap.this , Transaccion_cliente_Activity.class);
+                intent = new Intent(PedirSieteMap.this, Transaccion_cliente_Activity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_nav_miperfil:
-                intent =  new Intent(PedirSieteMap.this , Perfil_ClienteFragment.class);
+                intent = new Intent(PedirSieteMap.this, Perfil_ClienteFragment.class);
                 startActivity(intent);
                 break;
             case R.id.btn_nav_misviajes:
-                intent =  new Intent(PedirSieteMap.this , MisViajes_Cliente_Activity.class);
+                intent = new Intent(PedirSieteMap.this, MisViajes_Cliente_Activity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_nav_preferencias:
-                intent =  new Intent(PedirSieteMap.this , Preferencias.class);
+                intent = new Intent(PedirSieteMap.this, Preferencias.class);
                 startActivity(intent);
                 break;
         }
     }
 
-    public void Verificar_tipo_siete(int tipo, String nombre , Double lat , Double lng ){
-        switch (tipo){
+    public void Verificar_tipo_siete(int tipo, String nombre, Double lat, Double lng) {
+        switch (tipo) {
             case 1:
-                calculando_ruta(tipo_carrera ,nombre,lat,lng);
+                calculando_ruta(tipo_carrera, nombre, lat, lng);
                 //bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
                 break;
             case 2:
                 break;
             case 3:
-                Aux_CalcularRuta(tipo_carrera ,lat,lng);
+                Aux_CalcularRuta(tipo_carrera, lat, lng);
                 break;
             case 4:
-                Aux_CalcularRuta(tipo_carrera, lat,lng);
+                Aux_CalcularRuta(tipo_carrera, lat, lng);
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
                 break;
             case 5:
-                calculando_ruta(tipo_carrera ,nombre  ,lat,lng);
+                calculando_ruta(tipo_carrera, nombre, lat, lng);
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
                 break;
             case 6:
-                calculando_ruta(tipo_carrera ,nombre  ,lat,lng);
+                calculando_ruta(tipo_carrera, nombre, lat, lng);
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
                 break;
             case 7:
-                calculando_ruta(tipo_carrera ,nombre  ,lat,lng);
+                calculando_ruta(tipo_carrera, nombre, lat, lng);
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
                 break;
             case 10:
-                calculando_ruta(tipo ,nombre  ,lat,lng);
+                calculando_ruta(tipo, nombre, lat, lng);
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
                 break;
         }
     }
 
     ///AL SELECCIONAR EL TIPO DEL SIETE EN EL MAPA
-    public void CalcularRuta(int tipo_carrera){
-       Object tag=mAutocompleteTextView2.getTag();
-        Object taga=mAutocompleteTextView.getTag();
-        if(mAutocompleteTextView.getTag()!=null && mAutocompleteTextView2.getTag()!=null){
+    public void CalcularRuta(int tipo_carrera) {
+        Object tag = mAutocompleteTextView2.getTag();
+        Object taga = mAutocompleteTextView.getTag();
+        if (mAutocompleteTextView.getTag() != null && mAutocompleteTextView2.getTag() != null) {
             Intent intent = new Intent(PedirSieteMap.this, Calcular_ruta_activity.class);
-            LatLng latlng1=(LatLng) mAutocompleteTextView.getTag();
-            LatLng latlng2=(LatLng) mAutocompleteTextView2.getTag();
+            LatLng latlng1 = (LatLng) mAutocompleteTextView.getTag();
+            LatLng latlng2 = (LatLng) mAutocompleteTextView2.getTag();
 
             float[] results = new float[1];
             Location.distanceBetween(
@@ -681,19 +688,19 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     fin.latitude,
                     fin.longitude,
                     results);
-            if(results[0]> Float.valueOf(getString(R.string.maxima_km_busqueda))){
-                Toast.makeText(PedirSieteMap.this,"Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
+            if (results[0] > Float.valueOf(getString(R.string.maxima_km_busqueda))) {
+                Toast.makeText(PedirSieteMap.this, "Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
                 return;
-            }else if (tipo_carrera == 1){
-                JSONObject obj  = new JSONObject();
+            } else if (tipo_carrera == 1) {
+                JSONObject obj = new JSONObject();
                 try {
-                    obj.put("tipo" ,tipo_carrera);
-                    obj.put("lng" ,longitudeGPS);
-                    obj.put("lat" ,latitudeGPS);
-                    obj.put("latinicio" ,latlng1.latitude);
-                    obj.put("lnginicio" ,latlng1.longitude);
-                    obj.put("latfinal" ,latlng2.latitude);
-                    obj.put("lngfinal" ,latlng2.longitude);
+                    obj.put("tipo", tipo_carrera);
+                    obj.put("lng", longitudeGPS);
+                    obj.put("lat", latitudeGPS);
+                    obj.put("latinicio", latlng1.latitude);
+                    obj.put("lnginicio", latlng1.longitude);
+                    obj.put("latfinal", latlng2.latitude);
+                    obj.put("lngfinal", latlng2.longitude);
                     intent.putExtra("JSON", String.valueOf(obj));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -701,20 +708,19 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
             }
             //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
-        else{
-            Toast.makeText(PedirSieteMap.this,"Seleccione una ubicación valida.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(PedirSieteMap.this, "Seleccione una ubicación valida.", Toast.LENGTH_LONG).show();
         }
     }
 
 
     ///AL SELECCIONAR EL TIPO DEL SIETE EN EL MAPA
-    public void PedirImotoMensaje(int tipo_carrera){
-        Object tag=mAutocompleteTextView2.getTag();
-        Object taga=mAutocompleteTextView.getTag();
-        if(mAutocompleteTextView.getTag()!=null && mAutocompleteTextView2.getTag()!=null){
-            LatLng latlng1=(LatLng) mAutocompleteTextView.getTag();
-            LatLng latlng2=(LatLng) mAutocompleteTextView2.getTag();
+    public void PedirImotoMensaje(int tipo_carrera) {
+        Object tag = mAutocompleteTextView2.getTag();
+        Object taga = mAutocompleteTextView.getTag();
+        if (mAutocompleteTextView.getTag() != null && mAutocompleteTextView2.getTag() != null) {
+            LatLng latlng1 = (LatLng) mAutocompleteTextView.getTag();
+            LatLng latlng2 = (LatLng) mAutocompleteTextView2.getTag();
             float[] results = new float[1];
             float sum = 0;
             Location.distanceBetween(
@@ -723,39 +729,36 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     fin.latitude,
                     fin.longitude,
                     results);
-            if(results[0]> Float.valueOf(getString(R.string.maxima_km_busqueda))){
-                Toast.makeText(PedirSieteMap.this,"Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
+            if (results[0] > Float.valueOf(getString(R.string.maxima_km_busqueda))) {
+                Toast.makeText(PedirSieteMap.this, "Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
                 return;
-            }else if(tipo_carrera == 2){
+            } else if (tipo_carrera == 2) {
                 android.app.FragmentManager fragmentManager = getFragmentManager();
-                JSONObject obj  = new JSONObject();
+                JSONObject obj = new JSONObject();
                 try {
-                    obj.put("tipo" ,tipo_carrera);
-                    obj.put("lng" ,longitudeGPS);
-                    obj.put("lat" ,latitudeGPS);
-                    obj.put("latinicio" ,latlng1.latitude);
-                    obj.put("lnginicio" ,latlng1.longitude);
-                    obj.put("latfinal" ,latlng2.latitude);
-                    obj.put("lngfinal" ,latlng2.longitude);
-                    new Producto_imoto_Dialog(obj , 0 , 2).show(fragmentManager, "Dialog");
+                    obj.put("tipo", tipo_carrera);
+                    obj.put("lng", longitudeGPS);
+                    obj.put("lat", latitudeGPS);
+                    obj.put("latinicio", latlng1.latitude);
+                    obj.put("lnginicio", latlng1.longitude);
+                    obj.put("latfinal", latlng2.latitude);
+                    obj.put("lngfinal", latlng2.longitude);
+                    new Producto_imoto_Dialog(obj, 0, 2).show(fragmentManager, "Dialog");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
-        }else{
-            Toast.makeText(PedirSieteMap.this,"Seleccione una ubicación valida.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(PedirSieteMap.this, "Seleccione una ubicación valida.", Toast.LENGTH_LONG).show();
         }
     }
 
 
-
-
-
-    public void Aux_CalcularRuta(int tipo_carrera, Double lat , Double lng ){
-        if(mAutocompleteTextView.getText().toString().length() != 0 && mAutocompleteTextView2.getText().toString().length() != 0){
+    public void Aux_CalcularRuta(int tipo_carrera, Double lat, Double lng) {
+        if (mAutocompleteTextView.getText().toString().length() != 0 && mAutocompleteTextView2.getText().toString().length() != 0) {
             Intent intent = new Intent(PedirSieteMap.this, Calcular_ruta_activity.class);
-            LatLng latlng1=(LatLng) mAutocompleteTextView.getTag();
+            LatLng latlng1 = (LatLng) mAutocompleteTextView.getTag();
             intent.putExtra("tipo", tipo_carrera);
             intent.putExtra("lng", longitudeGPS);
             intent.putExtra("lat", latitudeGPS);
@@ -771,79 +774,78 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                     fin.latitude,
                     fin.longitude,
                     results);
-            if(results[0]>  Float.valueOf(getString(R.string.maxima_km_busqueda))){
-                Toast.makeText(PedirSieteMap.this,"Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
+            if (results[0] > Float.valueOf(getString(R.string.maxima_km_busqueda))) {
+                Toast.makeText(PedirSieteMap.this, "Por favor marque dentro de Santa Cruz.", Toast.LENGTH_LONG).show();
                 return;
-            }else{
+            } else {
                 startActivity(intent);
             }
             //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        }
-        else{
-            Toast.makeText(PedirSieteMap.this,"Seleccione una ubicación valida.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(PedirSieteMap.this, "Seleccione una ubicación valida.", Toast.LENGTH_LONG).show();
         }
     }
 
 
-    public void calculando_ruta(int tipo, String nombre , Double lat , Double lng){
-            addpositionFavorito(nombre , lat , lng);
+    public void calculando_ruta(int tipo, String nombre, Double lat, Double lng) {
+        addpositionFavorito(nombre, lat, lng);
         closeSoftKeyBoard();
         btn_ver_listo.setVisibility(View.GONE);
-        if(selected!=mAutocompleteTextView){
-            if(mAutocompleteTextView.getTag()!= null){
+        if (selected != mAutocompleteTextView) {
+            if (mAutocompleteTextView.getTag() != null) {
                 googleMap.clear();
-                LatLng latlng1=(LatLng) mAutocompleteTextView.getTag();
-                LatLng latlng2= new LatLng(lat , lng);
-                inicio=latlng1;
-                fin=latlng2;
-                String url = obtenerDireccionesURL(latlng1,latlng2);
-                DownloadTask downloadTask= new DownloadTask();
+                LatLng latlng1 = (LatLng) mAutocompleteTextView.getTag();
+                LatLng latlng2 = new LatLng(lat, lng);
+                inicio = latlng1;
+                fin = latlng2;
+                String url = obtenerDireccionesURL(latlng1, latlng2);
+                DownloadTask downloadTask = new DownloadTask();
                 downloadTask.execute(url);
                 tipo_carrera = tipo;
-                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , R.drawable.asetmar)));
+                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
                 googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 builder.include(latlng1);
                 builder.include(latlng2);
-                LatLngBounds bounds=builder.build();
+                LatLngBounds bounds = builder.build();
                 int width = getResources().getDisplayMetrics().widthPixels;
                 int height = getResources().getDisplayMetrics().heightPixels;
-                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,(int)(width*0.6),(int)(height*0.6),100);
-               // googleMap.setPadding(200,200,200,200);
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, (int) (width * 0.6), (int) (height * 0.6), 100);
+                // googleMap.setPadding(200,200,200,200);
 
                 googleMap.moveCamera(cu);
 
 
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
 
-                listo=true;
+                listo = true;
 
             }
-        }else{
-            if(mAutocompleteTextView2.getTag()!= null){
+        } else {
+            if (mAutocompleteTextView2.getTag() != null) {
                 googleMap.clear();
-                LatLng latlng1=(LatLng) mAutocompleteTextView2.getTag();
-                LatLng latlng2= new LatLng(lat , lng);
-                inicio=latlng1;
-                fin=latlng2;
-                String url = obtenerDireccionesURL(latlng1,latlng2);
-                DownloadTask downloadTask= new DownloadTask();
+                LatLng latlng1 = (LatLng) mAutocompleteTextView2.getTag();
+                LatLng latlng2 = new LatLng(lat, lng);
+                inicio = latlng1;
+                fin = latlng2;
+                String url = obtenerDireccionesURL(latlng1, latlng2);
+                DownloadTask downloadTask = new DownloadTask();
                 downloadTask.execute(url);
                 tipo_carrera = tipo;
-                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this , R.drawable.asetmar)));
+                googleMap.addMarker(new MarkerOptions().position(latlng1).title("INICIO").icon(Inicio_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
                 googleMap.addMarker(new MarkerOptions().position(latlng2).title("FIN").icon(Fin_bitmapDescriptorFromVector(this, R.drawable.asetmar)));
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 builder.include(latlng1);
                 builder.include(latlng2);
-                LatLngBounds bounds=builder.build();
+                LatLngBounds bounds = builder.build();
                 int width = getResources().getDisplayMetrics().widthPixels;
                 int height = getResources().getDisplayMetrics().heightPixels;
-                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,(int)(width*0.6),(int)(height*0.6),100);
-             //   googleMap.setPadding(200,200,200,200);
+                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, (int) (width * 0.6), (int) (height * 0.6), 100);
+                //   googleMap.setPadding(200,200,200,200);
 
-                    googleMap.moveCamera(cu);
+                googleMap.moveCamera(cu);
                 bottomSheetBehavior.setState(BehaviorCuston.STATE_HIDDEN);
-                listo=true;
+                listo = true;
             }
         }
 
@@ -899,11 +901,11 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public void addpositionFavorito(String nombre , Double lat , Double lng){
-        LatLng lat1 = new LatLng(lat ,lng);
+    public void addpositionFavorito(String nombre, Double lat, Double lng) {
+        LatLng lat1 = new LatLng(lat, lng);
         //String nombre  = get_localizacion(lat ,lng);
 
-        selected.setText(nombre,false);
+        selected.setText(nombre, false);
         selected.setTag(lat1);
     }
 
@@ -922,7 +924,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
         }
     };
-//ESTE COLOCA EL TEXTO AL TEXTVIEW
+    //ESTE COLOCA EL TEXTO AL TEXTVIEW
     private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
             = new ResultCallback<PlaceBuffer>() {
         @Override
@@ -936,10 +938,10 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             final Place place = places.get(0);
             CharSequence attributions = places.getAttributions();
             //String nombre=place.getAddress().toString();
-            LatLng lat=place.getLatLng();
-            selected.setText(place.getAddress(),false);
+            LatLng lat = place.getLatLng();
+            selected.setText(place.getAddress(), false);
             selected.setTag(lat);
-            calculando_ruta(0,place.getAddress()+"",lat.latitude,lat.longitude);
+            calculando_ruta(0, place.getAddress() + "", lat.latitude, lat.longitude);
             //CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 18);
             //googleMap.animateCamera(cu);
 
@@ -955,9 +957,9 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 Address returnedAddress = addresses.get(0);
                 //StringBuilder strReturnedAddress = new StringBuilder("");
 
-                strAdd=returnedAddress.getThoroughfare();
-                if(strAdd==null )
-                strAdd=returnedAddress.getFeatureName();
+                strAdd = returnedAddress.getThoroughfare();
+                if (strAdd == null)
+                    strAdd = returnedAddress.getFeatureName();
                 //  Log.w("My Current loction addr", strReturnedAddress.toString());
             } else {
                 Log.w("My Current loction addr", "No Address returned!");
@@ -972,8 +974,8 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if(hasFocus){
-            selected=(AutoCompleteTextView) v;
+        if (hasFocus) {
+            selected = (AutoCompleteTextView) v;
             //bottomSheetBehavior.setState(BehaviorCuston.STATE_EXPANDED);
 
             iv_marker.setVisibility(View.VISIBLE);
@@ -987,24 +989,26 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             });*/
         }
     }
+
     public void closeSoftKeyBoard() {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
-    private String obtenerDireccionesURL(LatLng origin, LatLng dest){
 
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+    private String obtenerDireccionesURL(LatLng origin, LatLng dest) {
 
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
 
-        String key = "key="+getString(R.string.apikey);
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
-        String parameters = str_origin+"&"+str_dest;
+        String key = "key=" + getString(R.string.apikey);
+
+        String parameters = str_origin + "&" + str_dest;
 
         String output = "json";
 
-        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters+"&"+key;
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&" + key;
 
         return url;
     }
@@ -1056,10 +1060,10 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
             String data = "";
 
-            try{
+            try {
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("ERROR AL OBTENER INFO D",e.toString());
+            } catch (Exception e) {
+                Log.d("ERROR AL OBTENER INFO D", e.toString());
             }
             return data;
         }
@@ -1074,7 +1078,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> > {
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
@@ -1082,12 +1086,12 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
 
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
                 routes = parser.parse(jObject);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return routes;
@@ -1099,14 +1103,14 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             PolylineOptions lineOptions = null;
             MarkerOptions markerOptions = new MarkerOptions();
 
-            for(int i=0;i<result.size();i++){
+            for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<LatLng>();
                 lineOptions = new PolylineOptions();
 
                 List<HashMap<String, String>> path = result.get(i);
 
-                for(int j=0;j<path.size();j++){
-                    HashMap<String,String> point = path.get(j);
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
 
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
@@ -1118,41 +1122,41 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
                 //polylineOption
                 lineOptions.addAll(points);
                 lineOptions.width(5);
-                lineOptions.color(Color.rgb(0,0,0));
+                lineOptions.color(Color.rgb(0, 0, 0));
             }
-            if(lineOptions!=null) {
+            if (lineOptions != null) {
                 googleMap.addPolyline(lineOptions);
 
                 int size = points.size() - 1;
                 float[] results = new float[1];
                 float sum = 0;
 
-                for(int i = 0; i < size; i++){
-                   Location.distanceBetween(
+                for (int i = 0; i < size; i++) {
+                    Location.distanceBetween(
                             points.get(i).latitude,
                             points.get(i).longitude,
-                            points.get(i+1).latitude,
-                            points.get(i+1).longitude,
+                            points.get(i + 1).latitude,
+                            points.get(i + 1).longitude,
                             results);
                     sum += results[0];
                 }
 
                 try {
                     String resp = new validar_precio(tipo_carrera).execute().get();
-                    if(resp==null){
-                        Toast.makeText(PedirSieteMap.this,"Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
-                    }else{
+                    if (resp == null) {
+                        Toast.makeText(PedirSieteMap.this, "Error al conectarse con el servidor.", Toast.LENGTH_SHORT).show();
+                    } else {
                         JSONObject object = new JSONObject(resp);
-                        if(object != null){
+                        if (object != null) {
                             double costo_metro = object.getDouble("costo_metro");
                             double costo_minuto = object.getDouble("costo_minuto");
                             double costo_basico = object.getDouble("costo_basico");
-                            mont = costo_basico + (costo_metro * sum ) + ((sum/500)*costo_minuto);
-                        }else {
-                            Toast.makeText(PedirSieteMap.this,"Error al obtener datos.", Toast.LENGTH_SHORT).show();
+                            mont = costo_basico + (costo_metro * sum) + ((sum / 500) * costo_minuto);
+                        } else {
+                            Toast.makeText(PedirSieteMap.this, "Error al obtener datos.", Toast.LENGTH_SHORT).show();
                         }
                         int montoaux = (int) mont;
-                        monto.setText("Monto aproximado: " +(montoaux-2)+" - "+(montoaux+2));
+                        monto.setText("Monto aproximado: " + (montoaux - 2) + " - " + (montoaux + 2));
                     }
 
                 } catch (InterruptedException e) {
@@ -1172,9 +1176,9 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
-                  HttpURLConnection urlConnection = null;
-            try{
-                URL url = new URL(strUrl);
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(strUrl);
 
             // Creamos una conexion http
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -1190,7 +1194,7 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
             StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while( ( line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -1198,9 +1202,9 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
             br.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.d("Exception", e.toString());
-        }finally{
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
@@ -1210,30 +1214,31 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
     private void mostar_button(int tipo) {
         recyclerView.setVisibility(View.VISIBLE);
-            switch (tipo) {
+        switch (tipo) {
             case 1:
                 recyclerView.setVisibility(View.VISIBLE);
-               // setTitle("¿A dónde vamos?");
+                // setTitle("¿A dónde vamos?");
                 break;
             case 3:
                 btn_pedir_maravilla.setVisibility(View.VISIBLE);
-               // setTitle("¿A dónde vamos?");
+                // setTitle("¿A dónde vamos?");
                 break;
             case 4:
                 btn_pedir_super.setVisibility(View.VISIBLE);
-               // setTitle("¿A dónde vamos?");
+                // setTitle("¿A dónde vamos?");
                 break;
         }
     }
 
     public class validar_precio extends AsyncTask<Void, String, String> {
         private int id;
-        public validar_precio(int id ){
-            this.id=id;
+
+        public validar_precio(int id) {
+            this.id = id;
         }
+
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute() {
             super.onPreExecute();
         }
 
@@ -1241,10 +1246,11 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
         protected String doInBackground(Void... params) {
             Hashtable<String, String> parametros = new Hashtable<>();
             parametros.put("evento", "get_costo");
-            parametros.put("id",id+"");
+            parametros.put("id", id + "");
             String respuesta = HttpConnection.sendRequest(new StandarRequestConfiguration(getString(R.string.url_servlet_admin), MethodType.POST, parametros));
             return respuesta;
         }
+
         @Override
         protected void onPostExecute(String resp) {
             super.onPostExecute(resp);
@@ -1253,7 +1259,8 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
 
 
     private boolean runtime_permissions() {
-        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){      requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},100);
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
             return true;
         }
         return false;
@@ -1262,12 +1269,38 @@ public class PedirSieteMap extends AppCompatActivity implements View.OnClickList
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 100){
-            if( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 100) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
-            }else {
+            } else {
                 runtime_permissions();
             }
+        }
+    }
+
+    public class AsyncTaskLoadImage extends AsyncTask<String, String, Bitmap> {
+        private final static String TAG = "AsyncTaskLoadImage";
+        private com.mikhaellopez.circularimageview.CircularImageView imageView;
+
+        public AsyncTaskLoadImage(com.mikhaellopez.circularimageview.CircularImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            Bitmap bitmap = null;
+            try {
+                URL url = new URL(params[0]);
+                bitmap = BitmapFactory.decodeStream((InputStream) url.getContent());
+            } catch (IOException e) {
+                Log.e(TAG, e.getMessage());
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            imageView.setImageBitmap(bitmap);
         }
     }
 
